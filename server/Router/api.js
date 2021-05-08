@@ -11,23 +11,36 @@ import registerRoute from '../middleware/register';
 
 router.get('/',
     sleepController.getUserData,
+    //returns only userid, firstname, lastname
     (req, res) => res.status(200).send(res.locals.users)
 );
 
+<<<<<<< HEAD
+=======
+router.get('/login')
+
+>>>>>>> dev
 router.get('/users',
     sleepController.getUserData,
     (req, res) => res.status(200).json({})
 );
 
+<<<<<<< HEAD
 //first GITHUB request:
 app.get('/login/github', loginRoute);
 //GITHUB register:
 app.get('/register', registerRoute);
 
 router.post('',
+=======
+router.post('/newentry',
+>>>>>>> dev
     sleepController.createSleepEntry,
-    (req, res) => res.status(200).json({})
+    (req, res) => {
+        res.status(200).send('from router post')
+    }
 );
+
 
 router.patch('',
     sleepController.updateSleepEntry,

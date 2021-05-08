@@ -5,6 +5,9 @@ const router = require('./router/api');
 
 //OAUTH TODO: Add steps in this file as well 
 
+
+app.use(express.json());
+
 if (process.env.NODE_ENV === 'production') {
   app.get('/', (req, res) => {
     return res.status(200).sendFile(path.join(__dirname, '../client/public/index.html'));
@@ -13,11 +16,17 @@ if (process.env.NODE_ENV === 'production') {
   // serve index.html on the route '/'
 };
 
+
 app.use('/api', router);
 
-app.get('/users', (req, res) => {
-  return res.status(200).send(checkFile);
-});
+
+app.post('/register', (req, res) => {
+  res.status(200).json(res.locals.user);
+})
+
+// app.get('/users', (req, res) => {
+//   return res.status(200).send(checkFile);
+// });
 
 app.get('*', (req, res) => res.status(200).sendFile(path.join(__dirname, '../client/public/index.html')));
 
