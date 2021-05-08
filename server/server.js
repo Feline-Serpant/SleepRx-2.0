@@ -1,10 +1,17 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const router = require('./router/api');
 
 // uncomment the below for proxy challenge
 
 const checkFile = [ 'This is a checkin', 'test only purpose'];
+
+app.get('/', (req, res) => {
+  return res.status(200).send(checkFile);
+});
+
+app.use('/api', router);
 
 app.get('/users', (req, res) => {
   return res.status(200).send(checkFile);
