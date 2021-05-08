@@ -1,7 +1,3 @@
-# SleepRx
+# Setting the server
 
-Sleep Soundly
-
-# some other new info
-
-made update here
+- We've got al we need over here!
