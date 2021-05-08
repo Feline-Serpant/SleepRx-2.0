@@ -45,14 +45,20 @@ module.exports = {
             },
           },
         ],
+      }
+      ],
+    },
+    devServer: {
+      publicPath: '/build',
+      proxy: {
+        '/api/**': 'http://localhost:3000',
+        '/': 'http://localhost:3000'
       },
-    ],
-  },
-  devServer: {
-    publicPath: "/build",
-    proxy: {
-      "/api": "http://localhost:3000",
-      "/": "http://localhost:3000",
+      port: 8080,
+      hot: true,
+      historyApiFallback: true,
+
+
     },
 
     hot: true,

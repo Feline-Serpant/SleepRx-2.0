@@ -4,20 +4,24 @@ const router = express.Router();
 
 router.get('/',
     sleepController.getUserData,
+    //returns only userid, firstname, lastname
     (req, res) => res.status(200).send(res.locals.users)
 );
 
-
+router.get('/login')
 
 router.get('/users',
     sleepController.getUserData,
     (req, res) => res.status(200).json({})
 );
 
-router.post('',
+router.post('/newentry',
     sleepController.createSleepEntry,
-    (req, res) => res.status(200).json({})
+    (req, res) => {
+        res.status(200).send('from router post')
+    }
 );
+
 
 router.patch('',
     sleepController.updateSleepEntry,
