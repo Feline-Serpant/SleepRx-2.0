@@ -40,9 +40,14 @@ const sleepControllers = {
 
   deleteSleepEntry: async (req, res, next) => {
     try{
-          return next();
-    }catch(err){
+      const {sleepid} = req.body
+      const value = [sleepid]
+      const result = db.query('DELETE FROM sleep WHERE VALUE($1)', value)
 
+      console.log(`Deleted Sleep Entry ${sleepid} from DB,`, result)
+      return next();
+    }catch(err){
+      console.log(err)
     }
   }
 };

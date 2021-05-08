@@ -1,7 +1,6 @@
 const express =  require('express');
 const sleepController = require('../controllers/sleepController')
 const router = express.Router();
-
 const loginRoute = require('../controllers/authController');
 const registerRoute = require('../middleware/register');
 
@@ -16,17 +15,17 @@ router.get('/',
     (req, res) => res.status(200).send(res.locals.users)
 );
 
-router.get('/users',
-    sleepController.getUserData,
-    (req, res) => res.status(200).json({})
-);
-
 // //first GITHUB request:
 // app.use('/login/github', loginRoute);
 // //GITHUB register:
 // app.use('/register', registerRoute);
 
-router.post('',
+router.get('/users',
+    sleepController.getUserData,
+    (req, res) => res.status(200).json({})
+);
+
+router.post('/newentry',
     sleepController.createSleepEntry,
     (req, res) => {
         res.status(200).send('from router post')

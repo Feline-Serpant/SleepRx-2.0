@@ -1,5 +1,5 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // * We need to coordinate the request to the Database in order to create the users
 
