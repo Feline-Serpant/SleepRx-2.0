@@ -1,5 +1,3 @@
-// import bcrypt from "bcryptjs";
-// import jwt from "jsonwebtoken";
 import { useParams } from "react-router";
 
 const client_id = process.env.CLIENT_ID
@@ -18,7 +16,7 @@ export const loginController = (req, res) => {
     app.get('/login/github/callback', async (req, res) => {
         const code = req.query.code
         const token = await getAccessToken(code)
-        const githubData = await gitGithubUser(token)
+        const githubData = await getGithubUser(token)
 
             if(githubData){
                 res.locals.githubId = githubData.id

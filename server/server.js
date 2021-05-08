@@ -11,13 +11,9 @@ if (process.env.NODE_ENV === 'production') {
   });
   app.use('/build', express.static(path.join(__dirname, '../build')));
   // serve index.html on the route '/'
-
 };
 
 app.use('/api', router);
-
-
-
 
 app.get('/users', (req, res) => {
   return res.status(200).send(checkFile);

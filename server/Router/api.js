@@ -2,7 +2,7 @@ const express =  require('express');
 const sleepController = require('../controllers/sleepController')
 const router = express.Router();
 import loginRoute from '../controllers/auth';
-import registerRoute from '../controllers/register';
+import registerRoute from '../middleware/register';
 
 //OAUTH TODO: Make rout post request for /login and one rout post request for
 // /register.
