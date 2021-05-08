@@ -30,6 +30,41 @@ const App = () => {
   
   //   <button onClick={() => setCount(count + 1)}> Click me</button>
 
+
+//Step 1:
+
+//FOR USE IN OAUTH LATER: Request a user's GitHub identity
+//GET https://github.com/login/oauth/authorize
+
+//Params:
+//client_id: Required. The client ID you received from GitHub when you registered.
+//redirect_uri: Required. The client ID you received from GitHub when you registered. needs to be our actual app page with the trakcer items
+//login: Suggests a specific account to use for signing in and authorizing the app. self-explanatory
+//scope: don't need(?) seems to redirect as needed
+//state: An unguessable random string. It is used to protect against cross-site request forgery attacks.
+//allow_signup: don't need.
+
+//Step 2:
+
+//Exchange this code for an access token:
+//POST https://github.com/login/oauth/access_token
+
+//Params:
+//client_id: 	Required. The client ID you received from GitHub for your OAuth App.
+//client_secret: 	Required. The client secret you received from GitHub for your OAuth App.
+//code: 	Required. The code you received as a response to Step 1.
+//redirect_uri: The URL in your application where users are sent after authorization.
+//state: 	The unguessable random string you provided in Step 1.
+
+//Step 3:
+// The access token allows you to make requests to the API on a behalf of a user.
+
+// Authorization: token OAUTH-TOKEN
+// GET https://api.github.com/user
+
+//For example, in curl you can set the Authorization header like this:
+//curl -H "Authorization: token OAUTH-TOKEN" https://api.github.com/user
+
   const renderForm = (routerProps) => {
     if(routerProps.location.pathname === "/login"){
       return <Form
