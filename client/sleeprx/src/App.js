@@ -1,4 +1,4 @@
-import vincent from './DashComponents/vincent.svg';
+import vincent from './vincent.svg';
 import './App.css';
 import React, { useState } from 'react';
 import MainContainer from './DashComponents/MainContainer'
@@ -30,11 +30,28 @@ const App = () => {
   
   //   <button onClick={() => setCount(count + 1)}> Click me</button>
 
-
-  const renderForm = () => {
-    //if register is clicked render register form else i render login form
-    return <Form userData={appState} />
+  const renderForm = (routerProps) => {
+    if(routerProps.location.pathname === "/login"){
+      return <Form
+        formName="Login"
+        // user={state.user}
+        // handleSubmit={this.handleLoginSubmit}
+        // handleLoginGithub={this.handleLoginGithub}
+       
+      />
+    } else if (routerProps.location.pathname === "/register") {
+      return <Form
+      formName="Register To Begin"
+      
+      // handleSubmit={handleRegisterSubmit}
+      // handleLoginGithub={handleLoginGithub}
+      />
+    }
   }
+  // const renderForm = () => {
+  //   //if register is clicked render register form else i render login form
+  //   return <Form userData={appState} />
+  // }
 
   const renderMain = () => {
     return <MainContainer userData={appState} />
