@@ -5,7 +5,7 @@ const sleepControllers = {
   getUserData: async (req, res, next) =>{
     try {
       //returned data
-      const result = await db.query('SELECT * FROM user_data')
+      const result = await db.query('SELECT userid, first_name, last_name FROM user_data')
       //figure out how to manipulate res from db
       res.locals.users = result.rows; 
       return next();
@@ -19,9 +19,10 @@ const sleepControllers = {
   //POST REQUEST to create new DB entries of sleep data per user
   createSleepEntry: async (req, res, next) => {
     try{
-        return next ();
+      console.log("from controller", req.body)
+      return next();
     } catch (err){
-        
+      console.log(req.body)
     }
     
   },
