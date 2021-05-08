@@ -1,5 +1,5 @@
 import vincent from './vincent.svg';
-import './App.css';
+import './styles.scss';
 import React, { useState } from 'react';
 import MainContainer from './DashComponents/MainContainer'
 import NavBar from './components/NavBar'

@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: './client/index.js',
+    entry: './client/src/index.js',
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js',
@@ -20,21 +20,46 @@ module.exports = {
           },
       },
       {
-          test: /\.s[ac]ss$/i,
-          exclude: /node_modules/,
-          use: [
-              'style-loader',
-              'css-loader',
-              'sass-loader'
-          ],
-        },
+        test: /\.s[ac]ss$/i,
+        exclude: /node_modules/,
+        use: [
+            'style-loader',
+            'css-loader',
+            'sass-loader'
+        ],
+      },
+      {
+        test: /\.(png|jpg|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-url-loader',
+            options: {
+              limit: 10000,
+            },
+          },
+        ],
+      }
       ],
     },
-    devServer : {
+    devServer: {
       publicPath: '/build',
       proxy: {
-        '/api': 'http://localhost:3000'
+        '/api': 'http://localhost:3000',
+        '/': 'http://localhost:3000'
       },
-      hot: true, 
+      hot: true,
+      historyApiFallback: true,
+
     },
 };

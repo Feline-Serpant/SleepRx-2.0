@@ -29,10 +29,13 @@
     "prop-types": "^15.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.3",
     "sass-loader": "^11.0.1",
     "scss-loader": "0.0.1",
     "style": "0.0.3",
     "style-loader": "^2.0.0",
+    "web-vitals": "^1.1.2",
     "webpack": "^5.32.0",
     "webpack-dev-server": "^3.11.2"
   },
@@ -50,6 +53,9 @@
     "scss-loader": "0.0.1",
     "style": "0.0.3",
     "style-loader": "^2.0.0",
+    "svg-inline-loader": "^0.8.2",
+    "svg-url-loader": "^7.1.1",
+    "url-loader": "^4.1.1",
     "webpack-cli": "^4.6.0"
   }
 }
