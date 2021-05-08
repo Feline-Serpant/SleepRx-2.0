@@ -1,8 +1,9 @@
 const express =  require('express');
 const sleepController = require('../controllers/sleepController')
 const router = express.Router();
-import loginRoute from '../controllers/auth';
-import registerRoute from '../middleware/register';
+
+const loginRoute = require('../controllers/authController');
+const registerRoute = require('../middleware/register');
 
 //OAUTH TODO: Make rout post request for /login and one rout post request for
 // /register.
@@ -15,26 +16,17 @@ router.get('/',
     (req, res) => res.status(200).send(res.locals.users)
 );
 
-<<<<<<< HEAD
-=======
-router.get('/login')
-
->>>>>>> dev
 router.get('/users',
     sleepController.getUserData,
     (req, res) => res.status(200).json({})
 );
 
-<<<<<<< HEAD
-//first GITHUB request:
-app.get('/login/github', loginRoute);
-//GITHUB register:
-app.get('/register', registerRoute);
+// //first GITHUB request:
+// app.use('/login/github', loginRoute);
+// //GITHUB register:
+// app.use('/register', registerRoute);
 
 router.post('',
-=======
-router.post('/newentry',
->>>>>>> dev
     sleepController.createSleepEntry,
     (req, res) => {
         res.status(200).send('from router post')

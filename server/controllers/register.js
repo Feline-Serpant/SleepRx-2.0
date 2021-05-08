@@ -2,15 +2,15 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 // * We need to coordinate the request to the Database in order to create the users
-import User from "../models/user.js";
 
+const User = require("../models/sleepModels.js");
 const secretPass = 'test';
 
 export const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
   try {
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.query({ username });
 
     if (!existingUser) return res.status(404).json({ message: "User doesn't exist" });
 
@@ -18,7 +18,7 @@ export const login = async (req, res) => {
 
     if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
 
-    const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, secretPass, { expiresIn: "1h" });
+    const token = jwt.sign({ username: existingUser.username, id: existingUser._id }, secretPass, { expiresIn: "1h" });
 
     res.status(200).json({ result: existingUser, token });
   } catch (err) {
@@ -27,10 +27,10 @@ export const login = async (req, res) => {
 };
 
 export const register = async (req, res) => {
-  const { email, password, confirmPassword, firstName, lastName } = req.body;
+  const { username, password, confirmPassword, firstName, lastName } = req.body;
 
   try {
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.query({ username });
 
     if (existingUser) return res.status(400).json({ message: "User already exists" });
 
@@ -38,9 +38,9 @@ export const register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
+    const result = await User.create({ username, password: hashedPassword, name: `${firstName} ${lastName}` });
 
-    const token = jwt.sign( { email: result.email, id: result._id }, secretPass, { expiresIn: "1h" } );
+    const token = jwt.sign( { username: result.username, id: result._id }, secretPass, { expiresIn: "1h" } );
 
     res.status(201).json({ result, token });
   } catch (error) {

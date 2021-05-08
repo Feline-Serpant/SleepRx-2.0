@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+// import { useParams } from "react-router";
 
 const client_id = process.env.CLIENT_ID
 const client_secret = process.env.CLIENT_SECRET
@@ -55,9 +55,9 @@ async function getGithubUser(access_token){
             Authorization: `bearer ${access_token}`
         }
     });
+    // ! The data should arrive on an object (name, id, etc...). Will double check.
     const data = await req.json()
     return data
 };
 
-
-export default loginRoute;
+// export default loginRoute;
