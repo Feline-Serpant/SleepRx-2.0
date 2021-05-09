@@ -5,6 +5,7 @@ const sleepControllers = {
   getUserData: async (req, res, next) =>{
     try {
       //returned data
+      //need to make this query only select user based on parameter passed from fetch request
       const result = await db.query('SELECT userid, first_name, last_name FROM user_data')
       //figure out how to manipulate res from db
       res.locals.users = result.rows; 
