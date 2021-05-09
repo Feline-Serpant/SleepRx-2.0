@@ -1,28 +1,32 @@
-const jwt = require('jsonwebtoken');
+//SAVE FOR LATER DO NOT WORK ON
+//ALSO PART OF SEQL CONVERSION NEEDS
 
-const secretPass = 'test';
+// //this is good
+// const jwt = require('jsonwebtoken');
+// const secretPass = 'test';
 
-const auth = async (req, res, next) => {
-  try {
-    const token = req.headers.authorization.split(" ")[1];
-    const isCustomAuth = token.length < 500;
+// //MUST CONVERT FROM MONGO-OOSE TO SEQL
+// const auth = async (req, res, next) => {
+//   try {
+//     const token = req.headers.authorization.split(" ")[1];
+//     const isCustomAuth = token.length < 500;
 
-    let decodedData;
+//     let decodedData;
     
-    if (token && isCustomAuth) {      
-      decodedData = jwt.verify(token, secretPass);
+//     if (token && isCustomAuth) {      
+//       decodedData = jwt.verify(token, secretPass);
 
-      req.userId = decodedData?.id;
-    } else {
-      decodedData = jwt.decode(token);
+//       req.userId = decodedData?.id;
+//     } else {
+//       decodedData = jwt.decode(token);
 
-      req.userId = decodedData?.sub;
-    }    
+//       req.userId = decodedData?.sub;
+//     }    
     
-    next();
-  } catch (error) {
-    console.log('I have an error in the Middleware', error);
-  }
-};
+//     next();
+//   } catch (error) {
+//     console.log('I have an error in the Middleware', error);
+//   }
+// };
 
-module.exports = auth;
+// module.exports = auth;
