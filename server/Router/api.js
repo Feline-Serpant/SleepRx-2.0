@@ -1,5 +1,6 @@
 const express =  require('express');
 const sleepController = require('../controllers/sleepController')
+const loginController = require('../controllers/loginController')
 const router = express.Router();
 import loginRoute from '../controllers/auth';
 import registerRoute from '../middleware/register';
@@ -15,26 +16,19 @@ router.get('/',
     (req, res) => res.status(200).send(res.locals.users)
 );
 
-<<<<<<< HEAD
-=======
-router.get('/login')
 
->>>>>>> dev
+router.post('/reguser',
+    loginController.createUser,
+    (req, res) => res.status(200).send("from reguser route")
+
 router.get('/users',
     sleepController.getUserData,
     (req, res) => res.status(200).json({})
-);
 
-<<<<<<< HEAD
-//first GITHUB request:
-app.get('/login/github', loginRoute);
-//GITHUB register:
-app.get('/register', registerRoute);
 
-router.post('',
-=======
+
 router.post('/newentry',
->>>>>>> dev
+
     sleepController.createSleepEntry,
     (req, res) => {
         res.status(200).send('from router post')
@@ -42,12 +36,16 @@ router.post('/newentry',
 );
 
 
-router.patch('',
+router.patch('/updateentry/:userid/:sleepid',
     sleepController.updateSleepEntry,
-    (req, res) => res.status(200).json({})
+    (req, res) => {
+        console.log(req.query)
+        res.status(200).send("from patch route")
+    }
 );
 
 router.delete('',
+
     sleepController.deleteSleepEntry,
     (res, req) => res.status(200).json({})
 );
