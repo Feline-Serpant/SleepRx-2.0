@@ -1,7 +1,21 @@
-import React from 'react'
+import React from 'react';
+
+import { useState } from 'react';
+//import { useForm } from "react-hook-form"
+
 
 const Form = (props) => {
-
+    const [formState, setFormState] = useState({
+        
+        first_name: "",
+        last_name: "",
+        username: "",
+        password: ""
+    
+    
+      })
+    // const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    // const onSubmit = data => console.log(data);
 
 
     // let handleSubmit = (e) => {
@@ -9,10 +23,10 @@ const Form = (props) => {
     //     // this.props.handleSubmit(this.state)
     //   }
     
-    let handleSubmit = (e) => {
+    const handleSubmit = (e) => {
           e.preventDefault()
         
-        // console.log("made it to handle sub")
+        console.log(formState)
         // const user = this.props.users.find(user => user.username === this.state.username)
         // console.log(user, "user & handle sub")
         // return this.props.currentUser(user)
@@ -20,14 +34,18 @@ const Form = (props) => {
     }
     
     const handleChange = (e) => {
-        // let {name, value} = e.target
-        // this.setState({
-        //   [name]: value
-        // })
+        const {name, value} = e.target
+        console.log(e.target.value)
+
+        setFormState({ 
+            [name]: value
+        })
+        console.log("after submit",formState)
       }
 
     let {formName} = props
-    // let {name, username, password} = state
+    let {first_name, last_name, username, password} = formState
+    console.log("state in decon", useState())
     return (
         <div>
              <form onSubmit={handleSubmit}>
@@ -36,18 +54,20 @@ const Form = (props) => {
                 <h2>{formName}</h2>
                 <h3>Hey, Good to see you! </h3>
                 <div className="formContent">
-                    <label htmlFor="name">Name:</label>
-                    <input className="input" type="text" autoComplete="off" name="name" value="{name}" onChange={handleChange}/><br/>
+                    <label htmlFor="name">First Name:</label>
+                    <input className="input" type="text" autoComplete="off" name="name" value={first_name} onChange={handleChange}/><br/>
+                    <label htmlFor="name">Last Name:</label>
+                    <input className="input" type="text" autoComplete="off" name="name" value={last_name} onChange={handleChange}/><br/>
                     <label htmlFor="username">Username:</label>
-                    <input className="input" type="text" autoComplete="off" name="username" value="{username}" onChange={handleChange}/><br/>
+                    <input className="input" type="text" autoComplete="off" name="username" value={username} onChange={handleChange}/><br/>
                     <label htmlFor="password">Password:</label>
-                    <input className="input" type="password" autoComplete="off" name="password" value="{password}" onChange={handleChange}/><br/>
+                    <input className="input" type="password" autoComplete="off" name="password" value={password} onChange={handleChange}/><br/>
                 </div>
                     <input className="submitButton" type="submit" value="Submit"/>
-                    <h3>Or Authenticate with </h3>
+                    <h3> Or Authenticate with </h3>
                     <a href="https://imgur.com/N4okLOv"><img src="https://i.imgur.com/N4okLOv.png" title="" /></a><br/>
-                    {/* <img src={github} className="" alt="github"  /> */}
-                    {/* <button onClick={props.handleLoginGithub}>GITHUB</button> */}
+                    {/* <img src={github} className="" alt="github"  />  */}
+                    <button onClick={props.handleLoginGithub}>GITHUB</button>
                 </div>
                 </form>
         </div>
