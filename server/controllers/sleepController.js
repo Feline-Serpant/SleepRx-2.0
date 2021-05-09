@@ -5,7 +5,7 @@ const sleepControllers = {
   getUserData: async (req, res, next) =>{
     try {
       //returned data
-      const result = await db.query('SELECT * FROM user_data')
+      const result = await db.query('SELECT userid, first_name, last_name FROM user_data')
       //figure out how to manipulate res from db
       res.locals.users = result.rows; 
       return next();
@@ -19,9 +19,17 @@ const sleepControllers = {
   //POST REQUEST to create new DB entries of sleep data per user
   createSleepEntry: async (req, res, next) => {
     try{
-        return next ();
+      const {userid, bedtime, waketime, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date} = req.body;
+      const query = "INSERT INTO sleep (userid, bedtime, waketime, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)"
+      const values = [userid, bedtime, waketime, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date]
+
+      const result = await db.query(query, values);
+
+      console.log(result);
+
+      return next();
     } catch (err){
-        
+      console.log(err)
     }
     
   },
@@ -29,9 +37,17 @@ const sleepControllers = {
   //PATCH REQUEST to update current sleep data before it 
   updateSleepEntry: async (req, res, next) =>{
     try {
+      const {userid, sleepid} = req.params;
+      const {bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date} = req.body;
+      const query = "UPDATE sleep SET bed_time = ($1), wake_time = ($2), hours_slept = ($3), exercise_time = ($4), caffeine_intake = ($5), calorie_intake = ($6), mood = ($7), score = ($8), date = ($9) WHERE userid = ($10) AND sleepid = ($11) RETURNING*"
+      const value = [bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date, userid, sleepid]
+
+      const result = await db.query(query, value)
+      console.log(result)
+
       return next();
     }catch(err){
-
+      console.log(err)
     }
   },
 
@@ -39,9 +55,14 @@ const sleepControllers = {
 
   deleteSleepEntry: async (req, res, next) => {
     try{
-          return next();
-    }catch(err){
+      const {sleepid} = req.body
+      const value = [sleepid]
+      const result = db.query('DELETE FROM sleep WHERE VALUE($1)', value)
 
+      console.log(`Deleted Sleep Entry ${sleepid} from DB,`, result)
+      return next();
+    }catch(err){
+      console.log(err)
     }
   }
 };
