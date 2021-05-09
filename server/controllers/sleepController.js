@@ -17,6 +17,23 @@ const sleepControllers = {
     }
   },
 
+  //GET REQUEST for user information on their sleep profile/data
+  getSleepData: async (req, res, next) =>{
+    try {
+      //returned data
+      //need to make this query only select user based on parameter passed from fetch request
+      const result = await db.query('SELECT * FROM sleep')
+      //figure out how to manipulate res from db
+      res.locals.allSleepEntries = result.rows; 
+      return next();
+
+    }catch (err){
+      console.log(err);
+      return next(err);
+    }
+  },
+
+
   //POST REQUEST to create new DB entries of sleep data per user
   createSleepEntry: async (req, res, next) => {
     try{

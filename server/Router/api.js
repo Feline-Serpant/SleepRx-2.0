@@ -9,13 +9,19 @@ const router = express.Router();
 //second login gets data from user. Possibly set a session
 
 router.get('/',
-    sleepController.getUserData,
+    sleepController.getUserData, 
     //returns only userid, firstname, lastname
-    (req, res) => res.status(200).send(res.locals.users)
+    (req, res) => res.status(200).send(res.locals.users )
+);
+//coral added this route, middleware can be found in controller
+router.get('/sleep',
+    sleepController.getSleepData,
+    
+    (req, res) => res.status(200).send(res.locals.allSleepEntries)
 );
 
 
-router.post('/reguser',
+router.post('/register',
     loginController.createUser,
     (req, res) => res.status(200).send("from reguser route")
 )
@@ -26,7 +32,7 @@ router.get('/users',
 )
 
 
-router.post('/newentry',
+router.post('/',
 
     sleepController.createSleepEntry,
     (req, res) => {
@@ -35,7 +41,7 @@ router.post('/newentry',
 );
 
 
-router.patch('/updateentry/:userid/:sleepid',
+router.patch('/:userid/:sleepid',
     sleepController.updateSleepEntry,
     (req, res) => {
         console.log(req.query)
@@ -43,7 +49,7 @@ router.patch('/updateentry/:userid/:sleepid',
     }
 );
 
-router.delete('',
+router.delete('/:id',
 
     sleepController.deleteSleepEntry,
     (res, req) => res.status(200).json({})

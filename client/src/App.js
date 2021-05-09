@@ -1,6 +1,6 @@
 import vincent from './vincent.svg';
-import './styles.scss';
-import React, { useState } from 'react';
+import styles from './scss/styles.scss';
+import React, { useState, useEffect } from 'react';
 import MainContainer from './DashComponents/MainContainer'
 import NavBar from './components/NavBar'
 import Home from './components/Home'
@@ -13,14 +13,10 @@ import { Route, withRouter, Switch } from 'react-router';
 const App = () => {
  
   //vvv----equiv of state={}---vvv
-  const [appState, setAppState] = useState({
-    user_id: "",
-    first_name: "",
-    last_name: "",
-    username: "",
-    password: ""
-  }) 
   
+
+
+
   //useState returns 2 vars defined in brackets, and set to value in parens
   // useState(0) returns a pair of values: the current state and a function that updates it
   
@@ -34,7 +30,51 @@ const App = () => {
   
   //   <button onClick={() => setCount(count + 1)}> Click me</button>
 
-  //___________________state rerendering____________________//
+
+  //___________________fetches____________________//
+  const [appState, setAppState] = useState(null) 
+  
+  const [sleepState, setSleepState] = useState(null) 
+  
+  const [tester , setTester] = useState();
+
+  useEffect(() => {
+    setTester("HOpe to see you soon");
+    
+    fetch("/api/")
+      .then(r => r.json())
+      .then((user) => {
+        console.log("user fetch", user)
+        setAppState(user);
+         console.log("user data from 2nd promise after setState", appState);
+    }).catch(err => console.log(err))
+    
+    fetch("/api/sleep")
+    .then(r => r.json())
+    .then((sleep) => {
+       console.log("sleep fetch", sleep)
+       setSleepState(sleep)
+       console.log("sleep fetch", sleep)
+    }).catch(err => console.log(err))
+    
+  }, [])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //___________________state re-rendering callbacks____________________//
 
   const addSleepEntry = (createdSleepEntry) => {
     console.log('from app render func', createdSleepEntry)
@@ -43,7 +83,7 @@ const App = () => {
     //   ...this.state.user, 
     //   trips: copyOfTrips
     // }
-    // this.setState({
+    //  useState({
     //   user: copyOfUser
     // })
   }
@@ -111,32 +151,33 @@ const App = () => {
   // }
 
   const renderMain = () => {
-    return <MainContainer userData={appState} />
+    if(appState && sleepState) return  <MainContainer userData={appState} sleepData={sleepState} />
   }
   const renderAbout = () => {
     return <About />
   }
  
 
-
+  console.log("new app state", appState)
+  console.log("new sleep state", sleepState)
+  //console.log("new app state first", appState[0])
   return (
     <div className="App">
       <header className="App-header">
-        <img src={vincent} className="App-logo" alt="logo" />
+        <img  src={vincent} className="App-logo" alt="logo" />
       </header>
-        <h2>
-        SleepRx
-        </h2>
+        <h2>  SleepRx  </h2>
+        {/* <h2>{appState[0].first_name}</h2> */}
         <style>
               @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap')
         </style>
         <NavBar/>  
+        {/* <h1>Hello  {appState[0].first_name}!</h1> */}
         <Switch>
           <Route path="/" exact component={Home}/>
-          <Route path="/login" render={renderForm}/>
+          <Route path="/login" render={sleepState && renderForm}/>
           <Route path="/register" render={renderForm}/>
           <Route path="/tracker" render={renderMain} />
-         
           <Route path="/about" render={renderAbout} />
           {/* <Route path="/about" render={renderErrorPage} /> */}
         </Switch>
