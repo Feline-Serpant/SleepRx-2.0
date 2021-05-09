@@ -1,5 +1,6 @@
 const express =  require('express');
 const sleepController = require('../controllers/sleepController')
+const loginController = require('../controllers/loginController')
 const router = express.Router();
 
 router.get('/',
@@ -8,11 +9,9 @@ router.get('/',
     (req, res) => res.status(200).send(res.locals.users)
 );
 
-router.get('/login')
-
-router.get('/users',
-    sleepController.getUserData,
-    (req, res) => res.status(200).json({})
+router.post('/reguser',
+    loginController.createUser,
+    (req, res) => res.status(200).send("from reguser route")
 );
 
 router.post('/newentry',
@@ -23,12 +22,16 @@ router.post('/newentry',
 );
 
 
-router.patch('',
+router.patch('/updateentry/:userid/:sleepid',
     sleepController.updateSleepEntry,
-    (req, res) => res.status(200).json({})
+    (req, res) => {
+        console.log(req.query)
+        res.status(200).send("from patch route")
+    }
 );
 
 router.delete('',
+
     sleepController.deleteSleepEntry,
     (res, req) => res.status(200).json({})
 );
