@@ -14,7 +14,8 @@ const SleepForm = (props) => {
         e.preventDefault()
         console.log(e.target)
         console.log(values)
-
+        const userid = props.userData[0].userid
+        console.log("post treq user", userid)
         fetch(`/api/`, {
             method: "POST",
             headers: {
@@ -22,11 +23,8 @@ const SleepForm = (props) => {
             "content-type": "application/json"
             },
                 body: JSON.stringify({
-                    cat_name,
-                    target_budget,
-                    current_bal,
-                    cat_type
-                
+                    
+                    values
                 })
             })
             .then(r => r.json())
