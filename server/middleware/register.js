@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+const jwt = require ('jsonwebtoken');
 
 const secretPass = 'test';
 
@@ -12,11 +12,11 @@ const auth = async (req, res, next) => {
     if (token && isCustomAuth) {      
       decodedData = jwt.verify(token, secretPass);
 
-      req.userId = decodedData?.id;
+      req.userId = decodedData.id;
     } else {
       decodedData = jwt.decode(token);
 
-      req.userId = decodedData?.sub;
+      req.userId = decodedData.sub;
     }    
     
     next();
@@ -25,4 +25,4 @@ const auth = async (req, res, next) => {
   }
 };
 
-export default auth;
+module.exports = auth;

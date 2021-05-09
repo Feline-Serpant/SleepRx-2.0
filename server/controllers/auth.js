@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+const { useParams } = require ("react-router");
 
 const client_id = process.env.CLIENT_ID
 const client_secret = process.env.CLIENT_SECRET
@@ -12,7 +12,7 @@ const loginRoute = (req, res) => {
 }
 
 //second GITHUB request:
-export const loginController = (req, res) => {
+const loginController = (req, res) => {
     app.get('/login/github/callback', async (req, res) => {
         const code = req.query.code
         const token = await getAccessToken(code)
@@ -60,4 +60,4 @@ async function getGithubUser(access_token){
 };
 
 
-export default loginRoute;
+module.export = loginRoute;

@@ -1,53 +1,30 @@
+const loginRoute = require ('../controllers/auth.js');
+const registerRoute = require ('../middleware/register');
 const express =  require('express');
-const sleepController = require('../controllers/sleepController')
-const loginController = require('../controllers/loginController')
+const sleepController = require('../controllers/sleepController');
+const loginController = require('../controllers/loginController');
 const router = express.Router();
-import loginRoute from '../controllers/auth';
-import registerRoute from '../middleware/register';
+
 
 //OAUTH TODO: Make rout post request for /login and one rout post request for
 // /register.
 
 //second login gets data from user. Possibly set a session
-
-router.get('/',
-    sleepController.getUserData,
-    //returns only userid, firstname, lastname
-    (req, res) => res.status(200).send(res.locals.users)
-);
+//returns only userid, firstname, lastname
+router.get('/',sleepController.getUserData, (req, res) => res.status(200).send(res.locals.users));
 
 
-router.post('/reguser',
-    loginController.createUser,
-    (req, res) => res.status(200).send("from reguser route")
+router.post('/reguser', loginController.createUser, (req, res) => res.status(200).send("from reguser route"));
 
-router.get('/users',
-    sleepController.getUserData,
-    (req, res) => res.status(200).json({})
+router.get('/users', sleepController.getUserData, (req, res) => res.status(200).json({}))
 
 
 
-router.post('/newentry',
-
-    sleepController.createSleepEntry,
-    (req, res) => {
-        res.status(200).send('from router post')
-    }
-);
+router.post('/newentry', sleepController.createSleepEntry, (req, res) => res.status(200).send('from router post'));
 
 
-router.patch('/updateentry/:userid/:sleepid',
-    sleepController.updateSleepEntry,
-    (req, res) => {
-        console.log(req.query)
-        res.status(200).send("from patch route")
-    }
-);
+router.patch('/updateentry/:userid/:sleepid', sleepController.updateSleepEntry, (req, res) =>  res.status(200).send("from patch route"));
 
-router.delete('',
-
-    sleepController.deleteSleepEntry,
-    (res, req) => res.status(200).json({})
-);
+router.delete('', sleepController.deleteSleepEntry,(res, req) => res.status(200).json({}));
 
 module.exports = router;
