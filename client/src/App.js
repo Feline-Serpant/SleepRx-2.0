@@ -11,13 +11,17 @@ import { Route, withRouter, Switch } from 'react-router';
 
 
 const App = () => {
-  const initialState = {
-    username: "",
-    password: "",
-  }
-  
+ 
   //vvv----equiv of state={}---vvv
-  const [appState, setAppState] = useState(initialState) //useState returns 2 vars defined in brackets, and set to value in parens
+  const [appState, setAppState] = useState({
+    user_id: "",
+    first_name: "",
+    last_name: "",
+    username: "",
+    password: ""
+  }) 
+  
+  //useState returns 2 vars defined in brackets, and set to value in parens
   // useState(0) returns a pair of values: the current state and a function that updates it
   
   ////vvv---- <p>You clicked {this.state.count} times</p>---vvv
@@ -30,6 +34,24 @@ const App = () => {
   
   //   <button onClick={() => setCount(count + 1)}> Click me</button>
 
+  //___________________state rerendering____________________//
+
+  const addSleepEntry = (createdSleepEntry) => {
+    console.log('from app render func', createdSleepEntry)
+    // const copyOfState = [...appState, createdSleepEntry]
+    // let copyOfUser = {
+    //   ...this.state.user, 
+    //   trips: copyOfTrips
+    // }
+    // this.setState({
+    //   user: copyOfUser
+    // })
+  }
+
+
+
+
+  //___________________route rendering____________________//
   const renderForm = (routerProps) => {
     if(routerProps.location.pathname === "/login"){
       return <Form
@@ -67,9 +89,9 @@ const App = () => {
       <header className="App-header">
         <img src={vincent} className="App-logo" alt="logo" />
       </header>
-        <p>
-        Here we go!
-        </p>
+        <h2>
+        SleepRx
+        </h2>
         <style>
               @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap')
         </style>
