@@ -9,7 +9,7 @@ import useSleepForm from "./useSleepForm"
 const SleepForm = (props) => {
 
     const [values, handleChange] = useSleepForm()
-
+    console.log(values)
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(e.target)
