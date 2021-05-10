@@ -153,10 +153,11 @@ const sleepControllers = {
   //coral updated this middleware
   deleteSleepEntry: async (req, res, next) => {
     try{
-      const {sleepid} = req.body.values
+      console.log(req.body)
+      const {sleepid} = req.body
       const value = [sleepid]
-      const result = db.query('DELETE FROM sleep WHERE sleepid=($1) returning *', value)
-      res.locals.deletedSleepEntry = result.rows[0]
+      const result = await db.query('DELETE FROM sleep WHERE sleepid=($1)', value)
+      res.locals.deletedEntry = result
       console.log(`Deleted Sleep Entry ${sleepid} from DB,`, result)
       return next();
     }catch(err){

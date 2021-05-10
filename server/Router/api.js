@@ -36,6 +36,13 @@ router.get('/users',
     (req, res) => res.status(200).json({})
 )
 
+router.delete('/delete',
+    sleepController.deleteSleepEntry,
+    (req, res) => {
+        res.status(200).json(res.locals.deletedEntry)
+    }
+);
+
 //Coral updated this route
 router.post('/',
 
@@ -68,11 +75,5 @@ router.patch('/update',
 //     }
 // );
 
-//Coral updated this route
-router.delete('/:id',
-
-    sleepController.deleteSleepEntry,
-    (res, req) => res.status(200).json(res.locals.deletedSleepEntry)
-);
 
 module.exports = router;
