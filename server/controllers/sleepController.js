@@ -40,11 +40,7 @@ const exerciseScore = (num) =>{
 //=IFS(G3= 0, 1, G3>0, 1- G3*(0.25))
 const caffeineScore = (num) =>{
   if(num===0) return 1;
-<<<<<<< HEAD
-  if(num>0) return 1-(num*0.25);
-=======
   if(num>0) return 1-(num * 0.25);
->>>>>>> dev
 }
 
 const calorieScore = (num) => {
@@ -135,32 +131,16 @@ const sleepControllers = {
   //coral updated this middleware
   updateSleepEntry: async (req, res, next) =>{
     try {
-<<<<<<< HEAD
-        //unsure if date will come in as params or will come in through body. 
-        req.body.values = convertNumber(req.body.values)
-        // const {date} = req.params;
-        const newScore = Math.floor(calcScore(req.body.values))
-        //if date is in req params, remove date from deconstructed value below
-        const {bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date} = req.body.values;
-        const query = "UPDATE sleep SET bed_time = ($1), wake_time = ($2), hours_slept = ($3), exercise_time = ($4), caffeine_intake = ($5), calorie_intake = ($6), mood = ($7), score = ($8) WHERE date = ($9)"
-        const value = [bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, newScore, date]
-        console.log(typeof newScore)
-
-        const result = await db.query(query, value)
-        console.log(result)
-        res.locals.updatedSleepEntry = result.rows[0]
-=======
       req.body.values = convertNumber(req.body.values)
       const {userid, sleepid} = req.params;
       const newScore = Math.floor(calcScore(req.body.values))
       const {bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date} = req.body.values;
-      const query = "UPDATE sleep SET bed_time = ($1), wake_time = ($2), hours_slept = ($3), exercise_time = ($4), caffeine_intake = ($5), calorie_intake = ($6), mood = ($7), score = ($8),  WHERE date = ($9) RETURNING*"
+      const query = "UPDATE sleep SET bed_time = ($1), wake_time = ($2), hours_slept = ($3), exercise_time = ($4), caffeine_intake = ($5), calorie_intake = ($6), mood = ($7), score = ($8) WHERE date = ($9) RETURNING*"
       const value = [bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, newScore, date]
 
       const result = await db.query(query, value)
       console.log(result)
       res.locals.updatedSleepEntry = result.rows[0]
->>>>>>> dev
       
       return next();
     }catch(err){
