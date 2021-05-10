@@ -32,15 +32,18 @@ const App = () => {
 
 
   //___________________fetches____________________//
+
+        //null
   const [appState, setAppState] = useState(null) 
-  
+  //     ^state,      ^.setState({})        ^initial state
+  //      new state[{},{}, etc.]
   const [sleepState, setSleepState] = useState(null) 
   
   const [tester , setTester] = useState();
 
   useEffect(() => {
-    setTester("HOpe to see you soon");
-    
+    setTester("Hope to see you soon");
+    //add login stuff here
     fetch("/api/")
       .then(r => r.json())
       .then((user) => {
@@ -76,18 +79,35 @@ const App = () => {
 
   //___________________state re-rendering callbacks____________________//
 
+
+  const createUser = (createdUser) => {
+    console.log('from app render func', createdSleepEntry)
+    // const copyOfState = [...appState, createdSleepEntry]
+    // let copyOfUser = {
+    //   ...appState
+    //  
+    // }
+    //  use my set state
+  }
   const addSleepEntry = (createdSleepEntry) => {
     console.log('from app render func', createdSleepEntry)
     // const copyOfState = [...appState, createdSleepEntry]
     // let copyOfUser = {
-    //   ...this.state.user, 
-    //   trips: copyOfTrips
+    //   ...appState
+    //  
     // }
-    //  useState({
-    //   user: copyOfUser
-    // })
+    //  use my set state
   }
 
+  const updateSleepEntry = (updateSleepEntry) => {
+    console.log('from app render func', createdSleepEntry)
+    // const copyOfState = [...appState, createdSleepEntry]
+    // let copyOfUser = {
+    //   ...appState
+    //  
+    // }
+    //  use my set state
+  }
 
 
 
@@ -130,11 +150,9 @@ const App = () => {
   const renderForm = (routerProps) => {
     if(routerProps.location.pathname === "/login"){
       return <Form
-        formName="Login"
-        // user={state.user}
-        // handleSubmit={this.handleLoginSubmit}
-        // handleLoginGithub={this.handleLoginGithub}
-       
+        formName="Login" 
+        addSleepEntry={addSleepEntry}
+
       />
     } else if (routerProps.location.pathname === "/register") {
       return <Form

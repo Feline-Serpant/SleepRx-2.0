@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get('/',
     sleepController.getUserData, 
-    //returns only userid, firstname, lastname
+    //returns only userid, firstname, lastname'
     (req, res) => res.status(200).send(res.locals.users )
 );
 //coral added this route, middleware can be found in controller
@@ -23,7 +23,12 @@ router.get('/sleep',
 
 router.post('/register',
     loginController.createUser,
-    (req, res) => res.status(200).send("from reguser route")
+    (req, res) => res.status(200).redirect('/tracker')
+)
+
+router.get('/login',
+    loginController.loginUser,
+    (req, res) => res.status(200).redirect('/tracker')
 )
 
 router.get('/users',
@@ -31,28 +36,29 @@ router.get('/users',
     (req, res) => res.status(200).json({})
 )
 
-
+//Coral updated this route
 router.post('/',
 
     sleepController.createSleepEntry,
     (req, res) => {
-        res.status(200).send('from router post')
+        res.status(200).json(res.locals.createdSleepEntry)
     }
 );
 
-
+//Coral updated this route
 router.patch('/:userid/:sleepid',
     sleepController.updateSleepEntry,
     (req, res) => {
         console.log(req.query)
-        res.status(200).send("from patch route")
+        res.status(200).json(res.locals.updatedSleepEntry)
     }
 );
 
+//Coral updated this route
 router.delete('/:id',
 
     sleepController.deleteSleepEntry,
-    (res, req) => res.status(200).json({})
+    (res, req) => res.status(200).json(res.locals.deletedSleepEntry)
 );
 
 module.exports = router;

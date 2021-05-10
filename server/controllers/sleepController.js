@@ -71,6 +71,7 @@ const sleepControllers = {
   },
 
   //GET REQUEST for user information on their sleep profile/data
+   //coral added this middleware for testing
   getSleepData: async (req, res, next) =>{
     try {
       //returned data
@@ -88,6 +89,7 @@ const sleepControllers = {
 
 
   //POST REQUEST to create new DB entries of sleep data per user
+ //coral updated this middleware
   createSleepEntry: async (req, res, next) => {
     try{
       req.body.values = convertNumber(req.body.values)
@@ -97,6 +99,7 @@ const sleepControllers = {
       const values = [userid, bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date]
       console.log(req.body.values)
       const result = await db.query(query, values);
+      res.locals.createdSleepEntry = result.rows[0]
 
       // console.log(result);
 
@@ -108,6 +111,7 @@ const sleepControllers = {
   },
 
   //PATCH REQUEST to update current sleep data before it 
+  //coral updated this middleware
   updateSleepEntry: async (req, res, next) =>{
     try {
       req.body.values = convertNumber(req.body.values)
@@ -119,7 +123,8 @@ const sleepControllers = {
 
       const result = await db.query(query, value)
       console.log(result)
-
+      res.locals.updatedSleepEntry = result.rows[0]
+      
       return next();
     }catch(err){
       console.log(err)
@@ -128,12 +133,13 @@ const sleepControllers = {
 
   //DELETE REQUEST to delete entry
 
+  //coral updated this middleware
   deleteSleepEntry: async (req, res, next) => {
     try{
       const {sleepid} = req.body
       const value = [sleepid]
-      const result = db.query('DELETE FROM sleep WHERE VALUE($1)', value)
-
+      const result = db.query('DELETE FROM sleep WHERE sleepid=($1) returning *', value)
+      res.locals.deletedSleepEntry = result.rows[0]
       console.log(`Deleted Sleep Entry ${sleepid} from DB,`, result)
       return next();
     }catch(err){
