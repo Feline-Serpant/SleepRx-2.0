@@ -15,7 +15,10 @@ const convertNumber = (object) => {
 
 const calcScore = (object) =>{
   const {hours_slept, exercise_time, caffeine_intake, calorie_intake, mood} = object;
-  const evalScore = sleepScore(hours_slept)+ exerciseScore(exercise_time) + caffeineScore(caffeine_intake) + calorieScore(calorie_intake) +moodScore(mood);
+  // console.log("in calc score", object)
+  // console.log(exerciseScore(hours_slept))
+  const evalScore = sleepScore(hours_slept) + exerciseScore(exercise_time) + caffeineScore(caffeine_intake) + calorieScore(calorie_intake) + moodScore(mood);
+  // console.log(evalScore)
   return evalScore; 
 }
 const sleepScore = (num) =>{
@@ -27,7 +30,6 @@ const sleepScore = (num) =>{
   if(num>9) return 3;
   else return 4;
 }
-console.log(sleepScore(3))
 //=ifs(E3<0.25, 0, E3<0.5, 0.5, E3<1, 1, E3>=1, 2)
 const exerciseScore = (num) =>{
   if(num<0.25) return 0;
@@ -92,12 +94,12 @@ const sleepControllers = {
  //coral updated this middleware
   createSleepEntry: async (req, res, next) => {
     try{
+      // console.log("from create sleep entry,",  req.body.values)
       req.body.values = convertNumber(req.body.values)
-      req.body.values.score = calcScore(req.body.values)
       const {userid, bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date} = req.body.values;
+      const newScore = calcScore(req.body.values)
       const query = "INSERT INTO sleep (userid, bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)"
-      const values = [userid, bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date]
-      console.log(req.body.values)
+      const values = [userid, bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, newScore, date]
       const result = await db.query(query, values);
       res.locals.createdSleepEntry = result.rows[0]
 
@@ -116,10 +118,10 @@ const sleepControllers = {
     try {
       req.body.values = convertNumber(req.body.values)
       const {userid, sleepid} = req.params;
-      req.body.values.score = calcScore(req.body.values)
+      const newScore = calcScore(req.body.values)
       const {bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date} = req.body.values;
-      const query = "UPDATE sleep SET bed_time = ($1), wake_time = ($2), hours_slept = ($3), exercise_time = ($4), caffeine_intake = ($5), calorie_intake = ($6), mood = ($7), score = ($8), date = ($9) WHERE userid = ($10) AND sleepid = ($11) RETURNING*"
-      const value = [bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date, userid, sleepid]
+      const query = "UPDATE sleep SET bed_time = ($1), wake_time = ($2), hours_slept = ($3), exercise_time = ($4), caffeine_intake = ($5), calorie_intake = ($6), mood = ($7), score = ($8),  WHERE date = ($9) RETURNING*"
+      const value = [bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, newScore, date]
 
       const result = await db.query(query, value)
       console.log(result)
@@ -136,7 +138,7 @@ const sleepControllers = {
   //coral updated this middleware
   deleteSleepEntry: async (req, res, next) => {
     try{
-      const {sleepid} = req.body
+      const {sleepid} = req.body.values
       const value = [sleepid]
       const result = db.query('DELETE FROM sleep WHERE sleepid=($1) returning *', value)
       res.locals.deletedSleepEntry = result.rows[0]
