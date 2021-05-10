@@ -31,28 +31,29 @@ router.get('/users',
     (req, res) => res.status(200).json({})
 )
 
-
+//Coral updated this route
 router.post('/',
 
     sleepController.createSleepEntry,
     (req, res) => {
-        res.status(200).send('from router post')
+        res.status(200).json(res.locals.createdSleepEntry)
     }
 );
 
-
+//Coral updated this route
 router.patch('/:userid/:sleepid',
     sleepController.updateSleepEntry,
     (req, res) => {
         console.log(req.query)
-        res.status(200).send("from patch route")
+        res.status(200).json(res.locals.updatedSleepEntry)
     }
 );
 
+//Coral updated this route
 router.delete('/:id',
 
     sleepController.deleteSleepEntry,
-    (res, req) => res.status(200).json({})
+    (res, req) => res.status(200).json(res.locals.deletedSleepEntry)
 );
 
 module.exports = router;
