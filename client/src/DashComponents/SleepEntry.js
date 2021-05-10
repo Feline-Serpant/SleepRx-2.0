@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState}  from 'react'
 
 const SleepEntry = (props) => {
 
@@ -21,7 +21,7 @@ const SleepEntry = (props) => {
     //the fetch (delete) request will need to accept either
     //1. sleepid ONLY
     //2. sleepid AND userid (dependant on if login state is working).
-    
+
     const handleDelete = () => {
         console.log("delete request for ", sleepid)
         fetch('/api/delete',{
@@ -37,6 +37,7 @@ const SleepEntry = (props) => {
                 // deleteSleepEntry(data);
             })
             .catch(err => console.log(err))
+            location.reload();
     }
 
     return (

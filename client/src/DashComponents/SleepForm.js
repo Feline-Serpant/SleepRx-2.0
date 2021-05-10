@@ -11,6 +11,7 @@ const SleepForm = (props) => {
     
     // If no entry exists, post request.
     
+    
 
     const [values, handleChange] = useSleepForm()
     // console.log(values)
@@ -62,6 +63,7 @@ const SleepForm = (props) => {
                 .then((updatedEntry) => {
                     console.log(updatedEntry)
             })
+            location.reload();
         }
         if(!entryExists){
             fetch(`/api/`, {
@@ -79,6 +81,7 @@ const SleepForm = (props) => {
                 .then((createdSleepEntry) => {
                     props.addSleepEntry(createdSleepEntry)
             })
+            location.reload();
         } 
       
     }
