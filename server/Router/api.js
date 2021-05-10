@@ -11,7 +11,7 @@ const router = express.Router();
 router.get('/',
     sleepController.getUserData, 
     //returns only userid, firstname, lastname'
-    (req, res) => res.status(200).send(res.locals.users )
+    (req, res) => res.status(200).send(res.locals.users)
 );
 //coral added this route, middleware can be found in controller
 router.get('/sleep',
@@ -23,17 +23,17 @@ router.get('/sleep',
 
 router.post('/register',
     loginController.createUser,
-    (req, res) => res.status(200).redirect('/tracker')
+    (req, res) => res.status(200).json(res.locals.user)
 )
 
 router.get('/login',
     loginController.loginUser,
-    (req, res) => res.status(200).redirect('/tracker')
+    (req, res) => res.status(200).json(res.locals.user)
 )
 
 router.get('/users',
     sleepController.getUserData,
-    (req, res) => res.status(200).json({})
+    (req, res) => res.status(200).json(res.locals.users)
 )
 
 router.delete('/delete',
