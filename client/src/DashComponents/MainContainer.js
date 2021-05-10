@@ -8,6 +8,15 @@ import Graph from './Graph'
 
 
     const sleep = props.sleepData
+    
+    sleep.sort((a,b)=>{
+        
+        const bdate = b.date.split('-')
+        const adate = a.date.split('-')
+        console.log(adate)
+        return bdate[0] - adate[0] || bdate[1] - adate[1] || bdate[2] - adate[2];
+    })
+
     // console.log("MainContainer state", sleep)
     // console.log("user stuff", props.userData)
     const sleepEntries = sleep.map((sleep) => (
