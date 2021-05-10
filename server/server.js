@@ -3,7 +3,10 @@ const app = express();
 const path = require('path');
 const router = require('./router/api');
 
-// uncomment the below for proxy challenge
+//OAUTH TODO: Add steps in this file as well 
+
+
+app.use(express.json());
 
 if (process.env.NODE_ENV === 'production') {
   app.get('/', (req, res) => {
@@ -11,18 +14,19 @@ if (process.env.NODE_ENV === 'production') {
   });
   app.use('/build', express.static(path.join(__dirname, '../build')));
   // serve index.html on the route '/'
-
 };
 
 
 app.use('/api', router);
 
 
+app.post('/register', (req, res) => {
+  res.status(200).json(res.locals.user);
+})
 
-
-app.get('/users', (req, res) => {
-  return res.status(200).send(checkFile);
-});
+// app.get('/users', (req, res) => {
+//   return res.status(200).send(checkFile);
+// });
 
 app.get('*', (req, res) => res.status(200).sendFile(path.join(__dirname, '../client/public/index.html')));
 
