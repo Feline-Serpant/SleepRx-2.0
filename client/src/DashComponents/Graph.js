@@ -4,6 +4,14 @@ const Graph = (props) => {
 
     const sleep = props.sleepData
 
+    sleep.sort((a,b)=>{
+        
+      const bdate = b.date.split('-')
+      const adate = a.date.split('-')
+      console.log(adate)
+      return adate[0] - bdate[0] || adate[1] - bdate[1] || adate[2] - bdate[2];
+  })
+
     const sleepEntryDate = sleep.map((sleep) => (
         // console.log("mapped", sleep)
         sleep.date
