@@ -86,28 +86,30 @@ const SleepForm = (props) => {
 
     
     return (
-        <div>
+        <div className="catForm">
             <form onSubmit={handleSubmit}>
                 <label>Enter Date</label>
-                <input type="date" name="date" placeholder="" value={date || ""} onChange={handleChange} ></input>
+                <input className="c-input" type="date" name="date" placeholder="" value={date || ""} onChange={handleChange} ></input>
                 <label>Bed Time</label>
-                <input type="time" name="bed_time"placeholder="" value={bed_time || ""} onChange={handleChange}></input>
+                <input className="c-input" type="time" name="bed_time"placeholder="" value={bed_time || ""} onChange={handleChange}></input>
                 <label>Rise O'clock</label>
-                <input type="time" name="wake_time" placeholder="" value={wake_time || ""} onChange={handleChange}></input>
+                <input className="c-input" type="time" name="wake_time" placeholder="" value={wake_time || ""} onChange={handleChange}></input>
                 <label>Hours Slept</label>
-                <input type="number" name="hours_slept" placeholder="Hours Slept" value={hours_slept || ""} onChange={handleChange}></input><br/>
-                {/* <label>Water Intake</label> */}
-                <input type="number" name="exercise_time" placeholder="Workout Length" value={exercise_time || ""} onChange={handleChange}></input>
-                {/* <label>exercise Intake</label> */}
-                <input type="number" name="caffeine_intake" placeholder="Cups of Caffeine" value={caffeine_intake || ""} onChange={handleChange}></input>
-                <input type="number" name="calorie_intake" placeholder="Calorie Intake" value={calorie_intake || ""} onChange={handleChange}></input>
-                <select name="mood" placeholder="Mood"  value={mood || ""} onChange={handleChange}>
-                    <option disabled>Mood</option>
-                    <option placeholder="Feeling Good">3</option>
-                    <option>2</option>
-                    <option>1</option>
+                <input className="c-input" type="number" name="hours_slept" placeholder="Hours Slept" value={hours_slept || ""} onChange={handleChange}></input><br/>
+                <label>Workout</label>
+                <input className="c-input" type="number" name="exercise_time" placeholder="minutes" value={exercise_time || ""} onChange={handleChange}></input>
+                <label>Caffeine Intake</label>
+                <input className="c-input" type="number" name="caffeine_intake" placeholder="Number of Cups" value={caffeine_intake || ""} onChange={handleChange}></input>
+                <label>Caloric Intake</label>
+                <input className="c-input" type="number" name="calorie_intake" placeholder="ex: 2000" value={calorie_intake || ""} onChange={handleChange}></input>
+                <label>Mood  </label>
+                <select className="c-options" name="mood" placeholder="Mood"  value={mood || ""} onChange={handleChange}>
+                    <option className="c-options" selected="true" disabled="disabled">Mood</option>
+                    <option className="c-options" value="3" placeholder="Feeling Good">Feeling Good</option>
+                    <option className="c-options" value="2">Average Day</option>
+                    <option className="c-options" value="1">Don't Talk to Me</option>
                 </select>
-                <input type="submit"></input>
+                <input className="submitButton" type="submit"></input>
 
             </form> 
         </div>
