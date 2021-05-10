@@ -8,33 +8,83 @@ import useSleepForm from "./useSleepForm"
 
 const SleepForm = (props) => {
 
+    
+    // If no entry exists, post request.
+    
+
     const [values, handleChange] = useSleepForm()
-    console.log(values)
+    // console.log(values)
+    const {date, bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood} = values
+    let entryExists = false;
+    if(date){
+        // fetch request to db to check if entry exists
+        // If entry exists, update state with current entry, and change handleSubmit to be a patch request.
+        console.log("date has proper length")
+        fetch('/api/confirm', {
+            method: "PATCH",
+            headers: {
+                 "content-type": "application/json"
+            },
+            body: JSON.stringify({date: date})
+            })
+            .then(res => res.json())
+            .then(confirmed => {
+                if(confirmed) entryExists = true;
+            })
+            .catch(err => console.log(err))
+    }
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(e.target)
         console.log(values)
+        
+        // ! Make conditional statements on Post/Patch based on date field completion.
+        // ? when date field length is 10 chararcters, get request to DB checking if entry exists.
+   
+
         const userid = props.userData[0].userid
         console.log("post treq user", userid)
-        fetch(`/api/`, {
-            method: "POST",
-            headers: {
-            
-            "content-type": "application/json"
-            },
-                body: JSON.stringify({
-                    
-                    values
+        console.log(entryExists)
+        if(entryExists) {
+            // fetch...method: "GET"
+            fetch(`/api/update`, {
+                method: "PATCH",
+                headers: {
+                
+                "content-type": "application/json"
+                },
+                    body: JSON.stringify({
+                        
+                        values
+                    })
                 })
+                .then(r => r.json())
+                .then((updatedEntry) => {
+                    console.log(updatedEntry)
             })
-            .then(r => r.json())
-            .then((createdSleepEntry) => {
-                props.addSleepEntry(createdSleepEntry)
-        })
+        }
+        if(!entryExists){
+            fetch(`/api/`, {
+                method: "POST",
+                headers: {
+                
+                "content-type": "application/json"
+                },
+                    body: JSON.stringify({
+                        
+                        values
+                    })
+                })
+                .then(r => r.json())
+                .then((createdSleepEntry) => {
+                    props.addSleepEntry(createdSleepEntry)
+            })
+        } 
+      
     }
 
 
-    const {date, bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood} = values
+    
     return (
         <div className="catForm">
             <form onSubmit={handleSubmit}>

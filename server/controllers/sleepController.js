@@ -113,6 +113,20 @@ const sleepControllers = {
     
   },
 
+  confirmSleepEntry: async (req,res,next) => {
+    try{
+      console.log("in controller for confirm sleepentry")
+      console.log(req.body.date)
+      const result = await db.query("SELECT * FROM sleep WHERE date = ($1)", [req.body.date])
+      if(result.rowCount === 0) res.locals.entryExists = false;
+      else res.locals.entryExists = true;
+      console.log(res.locals)
+      return next();
+    }catch(err){
+      console.log(err)
+    }
+  },
+
   //PATCH REQUEST to update current sleep data before it 
   //coral updated this middleware
   updateSleepEntry: async (req, res, next) =>{
@@ -121,7 +135,7 @@ const sleepControllers = {
       const {userid, sleepid} = req.params;
       const newScore = Math.floor(calcScore(req.body.values))
       const {bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date} = req.body.values;
-      const query = "UPDATE sleep SET bed_time = ($1), wake_time = ($2), hours_slept = ($3), exercise_time = ($4), caffeine_intake = ($5), calorie_intake = ($6), mood = ($7), score = ($8),  WHERE date = ($9) RETURNING*"
+      const query = "UPDATE sleep SET bed_time = ($1), wake_time = ($2), hours_slept = ($3), exercise_time = ($4), caffeine_intake = ($5), calorie_intake = ($6), mood = ($7), score = ($8) WHERE date = ($9) RETURNING*"
       const value = [bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, newScore, date]
 
       const result = await db.query(query, value)
@@ -151,4 +165,4 @@ const sleepControllers = {
   }
 };
 
-module.exports = sleepControllers;
+module.exports = sleepControllers
