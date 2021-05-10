@@ -29,6 +29,7 @@ const SleepForm = (props) => {
             })
             .then(r => r.json())
             .then((createdSleepEntry) => {
+                console.log(createdSleepEntry)
                 props.addSleepEntry(createdSleepEntry)
         })
     }
@@ -57,7 +58,7 @@ const SleepForm = (props) => {
                     <option>2</option>
                     <option>1</option>
                 </select>
-                <input type="submit"></input>
+                <input type="submit" onClick={handleSubmit}></input>
 
             </form> 
         </div>

@@ -43,8 +43,12 @@ const Form = (props) => {
                      formState
                     })
                   }).then( res => res.json())
-                  .then(createdSleepEntry => {
-                      props.createUser(createdSleepEntry)})//.console.log(err => {console.log(err)})
+                //add handle response here
+                .then(res => {
+                    console.log('from handle response', res)
+                    props.handleResponse(res)})
+                //   .then(createdUser => {
+                //       props.createUser(createdUser)})//.console.log(err => {console.log(err)})
         }
        
     }

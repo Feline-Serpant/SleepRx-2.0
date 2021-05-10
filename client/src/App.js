@@ -5,9 +5,12 @@ import MainContainer from './DashComponents/MainContainer'
 import NavBar from './components/NavBar'
 import Home from './components/Home'
 import About from './components/About'
-
+import useForm  from './components/useForm'
 import Form from './components/Form'
 import { Route, withRouter, Switch } from 'react-router';
+import { useHistory } from 'react-router-dom';
+const  history = useHistory
+
 
 
 const App = () => {
@@ -50,7 +53,9 @@ const App = () => {
         // console.log("user fetch", user)
         setAppState(user);
         //  console.log("user data from 2nd promise after setState", appState);
-    }).catch(err => console.log(err))
+    })
+    // .then(user => handleResponse(user))
+    .catch(err => console.log(err))
     
     fetch("/api/sleep")
     .then(r => r.json())
@@ -79,26 +84,50 @@ const App = () => {
 
   //___________________state re-rendering callbacks____________________//
 
+  //takes copy of original state,
+    //"edit" user, pass, FN, and LN of state and set to what's been registered
+    //trigger rerender of page, and "create" session for that user
+    //these can't be exports. it's erroring out
+    //Its nor regocnozing create user as a function, I thought exporting might fix that
+    //yeah i see the logic. the terminal is upset tho
+  // const createUser = (createdUser) => {
+  //   console.log('from app render func', createdUser)
+  //   console.log('from app redner func : Created:', createdUser)
+  //   const copyOfState = [...appState, createdUser]
+  //   let copyOfUser = {
+  //     ...appState,
+  //     ...createdUser
+  //   }
+  //   //  use my set state
+  //   copyOfState = setAppState(copyOfUser)
+    
 
-  const createUser = (createdUser) => {
-    console.log('from app render func', createdSleepEntry)
-    console.log('from app redner func : Created User Argurment :', createdUser)
-    const copyOfState = [...appState, createdSleepEntry]
-    let copyOfUser = {
-      ...appState
-     //!HANDLE RE-RENDER FIRST TASK
+  // };
+
+  const handleResponse = (res) => {
+    if(res){
+      setAppState(res, () =>{
+        history.push("/tracker")
+      })
     }
-    //  use my set state
   }
   
+  //now that there are users we are going to use appstate
+  //appstate is current state, to set it, use setState and put what we're using inside
+  //const [appState, setAppState] = useState(null) 
+  //     ^state,      ^.setState({})        ^initial state
+
   const addSleepEntry = (createdSleepEntry) => {
     console.log('from app render func', createdSleepEntry)
-    // const copyOfState = [...appState, createdSleepEntry]
-    // let copyOfUser = {
-    //   ...appState
-    //  //!HANDLE RE-RENDER
-    // }
+    const copyOfState = [...appState, createdSleepEntry]
+    let copyOfUser = {
+      ...appState,
+      ...createdSleepEntry
+    }
+    //!HANDLE RE-RENDER
     //  use my set state
+    copyOfState = setAppState({copyOfUser})
+    return;
   }
 
   const updateSleepEntry = (updateSleepEntry) => {
@@ -153,15 +182,18 @@ const App = () => {
     if(routerProps.location.pathname === "/login"){
       return <Form
         formName="Login" 
-        addSleepEntry={addSleepEntry}
+        //addSleepEntry={addSleepEntry}
+        //createUser={createUser}
+        //handleResponse={handleResponse}
 
       />
     } else if (routerProps.location.pathname === "/register") {
       return <Form
       formName="Register To Begin"
-      
+      //createUser={createUser}
       // handleSubmit={handleRegisterSubmit}
       // handleLoginGithub={handleLoginGithub}
+      handleResponse={handleResponse}
       />
     }
   }
@@ -171,7 +203,7 @@ const App = () => {
   // }
 
   const renderMain = () => {
-    if(appState && sleepState) return  <MainContainer userData={appState} sleepData={sleepState} />
+    if(appState && sleepState) return  <MainContainer userData={appState} sleepData={sleepState} addSleepEntry={addSleepEntry} />
   }
   const renderAbout = () => {
     return <About />

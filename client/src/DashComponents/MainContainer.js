@@ -18,7 +18,7 @@ import SleepEntry from './SleepEntry'
     return (
         <div>
             <h2>Hi from main </h2>
-            <SleepForm userData={props.userData}/>
+            <SleepForm addSleepEntry={props.addSleepEnrtry} userData={props.userData}/>
             {sleepEntries}
             {/* <SleepEntry key={sleep.sleepid} sleep={sleep} entryDate={sleep.date} /> */}
             {/* <SleepEntry key={sleep.sleepid} sleep={sleep} entryDate={sleep.date} /> */}

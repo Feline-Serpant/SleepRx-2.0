@@ -46,8 +46,7 @@ const sleepControllers = {
 
       const result = await db.query(query, values);
       res.locals.createdSleepEntry = result.rows[0]
-
-      console.log(result);
+;
       
       return next();
     } catch (err){
