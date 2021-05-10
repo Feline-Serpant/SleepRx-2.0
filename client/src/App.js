@@ -1,4 +1,5 @@
 import vincent from './vincent.svg';
+import SleepRx_Logo from './SleepRx_Logo.svg';
 import styles from './scss/styles.scss';
 import React, { useState, useEffect } from 'react';
 import MainContainer from './DashComponents/MainContainer'
@@ -182,9 +183,11 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <img  src={vincent} className="App-logo" alt="logo" />
+      <div className="header-col">
+      <h2 className="name">  SleepRx  </h2> <img  src={SleepRx_Logo} className="navLogo" alt="logo" />
+       </div>
       </header>
-        <h2>  SleepRx  </h2>
+       
         {/* <h2>{appState[0].first_name}</h2> */}
         <style>
               @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap')
