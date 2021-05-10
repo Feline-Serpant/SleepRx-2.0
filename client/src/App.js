@@ -43,7 +43,7 @@ const App = () => {
 
   useEffect(() => {
     setTester("Hope to see you soon");
-    
+    //add login stuff here
     fetch("/api/")
       .then(r => r.json())
       .then((user) => {
