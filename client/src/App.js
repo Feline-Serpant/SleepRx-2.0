@@ -86,7 +86,7 @@ const App = () => {
     const copyOfState = [...appState, createdSleepEntry]
     let copyOfUser = {
       ...appState
-     
+     //!HANDLE RE-RENDER FIRST TASK
     }
     //  use my set state
   }
@@ -96,7 +96,7 @@ const App = () => {
     // const copyOfState = [...appState, createdSleepEntry]
     // let copyOfUser = {
     //   ...appState
-    //  
+    //  //!HANDLE RE-RENDER
     // }
     //  use my set state
   }
@@ -106,7 +106,7 @@ const App = () => {
     // const copyOfState = [...appState, createdSleepEntry]
     // let copyOfUser = {
     //   ...appState
-    //  
+    //  //!HANDLE RE-RENDER
     // }
     //  use my set state
   }

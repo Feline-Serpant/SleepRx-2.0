@@ -72,13 +72,13 @@ const Form = (props) => {
                 <h3>Hey, Good to see you! </h3>
                 <div className="formContent">
                     <label htmlFor="name">First Name:</label>
-                    <input className="input" type="text" autoComplete="off" name="first_name" value={first_name } onChange={handleChange}/><br/>
+                    <input className="input" type="text" autoComplete="off" name="first_name" value={ first_name } onChange={handleChange}/><br/>
                     <label htmlFor="name">Last Name:</label>
                     <input className="input" type="text" autoComplete="off" name="last_name " value={last_name } onChange={handleChange}/><br/>
                     <label htmlFor="username">Username:</label>
-                    <input className="input" type="text" autoComplete="off" name="username" value={username } onChange={handleChange}/><br/>
+                    <input className="input" type="text" autoComplete="off" name="username" value={ username } onChange={handleChange}/><br/>
                     <label htmlFor="password">Password:</label>
-                    <input className="input" type="password" autoComplete="off" name="password" value={password } onChange={handleChange}/><br/>
+                    <input className="input" type="password" autoComplete="off" name="password" value={ password } onChange={handleChange}/><br/>
                 </div>
                     <input className="submitButton" type="submit" value="Submit"/>
                     <h3> Or Authenticate with </h3>
