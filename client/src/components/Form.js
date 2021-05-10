@@ -30,7 +30,7 @@ const Form = (props) => {
     
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(formState)
+        //console.log(formState)
        if(props.formName === 'Register To Begin'){
         fetch('/api/register', {
               
@@ -46,7 +46,7 @@ const Form = (props) => {
                   }).then( res => res.json())
                 //add handle response here
                 .then(res => {
-                    console.log('from handle response', res)
+                    //console.log('from handle response', res)
                     props.handleResponse(res)})
                 //   .then(createdUser => {
                 //       props.createUser(createdUser)})//.console.log(err => {console.log(err)})

@@ -54,7 +54,7 @@ router.patch('/confirm',
 router.patch('/update',
     sleepController.updateSleepEntry,
     (req, res) => {
-        console.log("in router.patch for /update")
+        //console.log("in router.patch for /update")
         res.status(200).json()
     }
 );

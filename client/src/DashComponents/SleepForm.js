@@ -19,7 +19,7 @@ const SleepForm = (props) => {
     if(date){
         // fetch request to db to check if entry exists
         // If entry exists, update state with current entry, and change handleSubmit to be a patch request.
-        console.log("date has proper length")
+        //console.log("date has proper length")
         fetch('/api/confirm', {
             method: "PATCH",
             headers: {
@@ -104,8 +104,8 @@ const SleepForm = (props) => {
                 <input className="c-input" type="number" name="calorie_intake" placeholder="ex: 2000" value={calorie_intake || ""} onChange={handleChange}></input>
                 <label>Mood  </label>
                 <select className="c-options" name="mood" placeholder="Mood"  value={mood || ""} onChange={handleChange}>
-                    <option className="c-options" selected="true" disabled="disabled">Mood</option>
-                    <option className="c-options" value="3" placeholder="Feeling Good">Feeling Good</option>
+                    <option className="c-options" value="" selected="true" disabled="disabled">Select Mood</option>
+                    <option className="c-options" value="3">Feeling Good</option>
                     <option className="c-options" value="2">Average Day</option>
                     <option className="c-options" value="1">Don't Talk to Me</option>
                 </select>
@@ -118,6 +118,7 @@ const SleepForm = (props) => {
 
 export default SleepForm
 
+{/*<option className="c-options" selected="true" disabled="disabled">Select Mood</option> */}
 
 {/* <select>
                     <option disabled>Bed Time</option>

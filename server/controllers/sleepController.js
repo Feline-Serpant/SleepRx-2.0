@@ -95,7 +95,7 @@ const sleepControllers = {
   createSleepEntry: async (req, res, next) => {
     try{
       // console.log("from create sleep entry,",  req.body.values)
-      console.log(req.body.values)
+      //console.log(req.body.values)
       req.body.values = convertNumber(req.body.values)
       const {userid, bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date} = req.body.values;
       const newScore = Math.floor(calcScore(req.body.values))
@@ -115,8 +115,8 @@ const sleepControllers = {
 
   confirmSleepEntry: async (req,res,next) => {
     try{
-      console.log("in controller for confirm sleepentry")
-      console.log(req.body.date)
+      //console.log("in controller for confirm sleepentry")
+      //console.log(req.body.date)
       const result = await db.query("SELECT * FROM sleep WHERE date = ($1)", [req.body.date])
       if(result.rowCount === 0) res.locals.entryExists = false;
       else res.locals.entryExists = true;
@@ -139,7 +139,7 @@ const sleepControllers = {
       const value = [bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, newScore, date]
 
       const result = await db.query(query, value)
-      console.log(result)
+      //console.log(result)
       res.locals.updatedSleepEntry = result.rows[0]
       
       return next();
