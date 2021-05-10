@@ -44,15 +44,29 @@ router.post('/',
         res.status(200).json(res.locals.createdSleepEntry)
     }
 );
-
-//Coral updated this route
-router.patch('/:userid/:sleepid',
-    sleepController.updateSleepEntry,
+router.patch('/confirm',
+    sleepController.confirmSleepEntry,
     (req, res) => {
-        console.log(req.query)
-        res.status(200).json(res.locals.updatedSleepEntry)
+        res.status(200).json(res.locals.entryExists)
     }
 );
+
+router.patch('/update',
+    sleepController.updateSleepEntry,
+    (req, res) => {
+        console.log("in router.patch for /update")
+        res.status(200).json()
+    }
+);
+
+//Coral updated this route
+// router.patch('/:userid/:sleepid',
+//     sleepController.updateSleepEntry,
+//     (req, res) => {
+//         console.log(req.query)
+//         res.status(200).json(res.locals.updatedSleepEntry)
+//     }
+// );
 
 //Coral updated this route
 router.delete('/:id',
