@@ -33,6 +33,7 @@ const SleepForm = (props) => {
         })
     }
 
+
     const {date, bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood} = values
     return (
         <div>
@@ -52,9 +53,9 @@ const SleepForm = (props) => {
                 <input type="number" name="calorie_intake" placeholder="Calorie Intake" value={calorie_intake || ""} onChange={handleChange}></input>
                 <select name="mood" placeholder="Mood"  value={mood || ""} onChange={handleChange}>
                     <option disabled>Mood</option>
-                    <option>Feelin good</option>
-                    <option>Average day</option>
-                    <option>could be better</option>
+                    <option placeholder="Feeling Good">3</option>
+                    <option>2</option>
+                    <option>1</option>
                 </select>
                 <input type="submit"></input>
 

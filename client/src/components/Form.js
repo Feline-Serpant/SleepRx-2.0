@@ -1,19 +1,23 @@
 import React from 'react';
 
-import { useState } from 'react';
+//import { useState } from 'react';
 //import { useForm } from "react-hook-form"
+import useForm from "./useForm"
 
 
 const Form = (props) => {
-    const [formState, setFormState] = useState({
+    // const [formState, setFormState] = useState({
         
-        first_name: "",
-        last_name: "",
-        username: "",
-        password: ""
+    //     first_name: "",
+    //     last_name: "",
+    //     username: "",
+    //     password: ""
     
     
-      })
+    //   })
+
+  
+    
     // const { register, handleSubmit, watch, formState: { errors } } = useForm();
     // const onSubmit = data => console.log(data);
 
@@ -24,28 +28,42 @@ const Form = (props) => {
     //   }
     
     const handleSubmit = (e) => {
-          e.preventDefault()
-        
+        e.preventDefault()
         console.log(formState)
-        // const user = this.props.users.find(user => user.username === this.state.username)
-        // console.log(user, "user & handle sub")
-        // return this.props.currentUser(user)
-        
+       if(props.formName === 'Register To Begin'){
+        fetch('/api/register', {
+              
+                    method: 'POST',
+                    headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        
+                     formState
+                    })
+                  }).then( res => res.json())
+                  .then(createdSleepEntry => {
+                      props.createUser(createdSleepEntry)
+                  }).console.log(err => {console.log(err)})
+        }
+       
     }
     
-    const handleChange = (e) => {
-        const {name, value} = e.target
-        console.log(e.target.value)
+    // const handleChange = (e) => {
+    //     const {name, value} = e.target
+    //     console.log(e.target.value)
 
-        setFormState({ 
-            [name]: value
-        })
-        console.log("after submit",formState)
-      }
+    //     setFormState({ 
+    //         [name]: value
+    //     })
+    //}     
 
+    const [formState, handleChange ] = useForm();
+    
     let {formName} = props
     let {first_name, last_name, username, password} = formState
-    console.log("state in decon", useState())
+    //console.log("state in decon", useState())
     return (
         <div>
              <form onSubmit={handleSubmit}>
@@ -55,13 +73,13 @@ const Form = (props) => {
                 <h3>Hey, Good to see you! </h3>
                 <div className="formContent">
                     <label htmlFor="name">First Name:</label>
-                    <input className="input" type="text" autoComplete="off" name="name" value={first_name} onChange={handleChange}/><br/>
+                    <input className="input" type="text" autoComplete="off" name="first_name" value={first_name } onChange={handleChange}/><br/>
                     <label htmlFor="name">Last Name:</label>
-                    <input className="input" type="text" autoComplete="off" name="name" value={last_name} onChange={handleChange}/><br/>
+                    <input className="input" type="text" autoComplete="off" name="last_name " value={last_name } onChange={handleChange}/><br/>
                     <label htmlFor="username">Username:</label>
-                    <input className="input" type="text" autoComplete="off" name="username" value={username} onChange={handleChange}/><br/>
+                    <input className="input" type="text" autoComplete="off" name="username" value={username } onChange={handleChange}/><br/>
                     <label htmlFor="password">Password:</label>
-                    <input className="input" type="password" autoComplete="off" name="password" value={password} onChange={handleChange}/><br/>
+                    <input className="input" type="password" autoComplete="off" name="password" value={password } onChange={handleChange}/><br/>
                 </div>
                     <input className="submitButton" type="submit" value="Submit"/>
                     <h3> Or Authenticate with </h3>

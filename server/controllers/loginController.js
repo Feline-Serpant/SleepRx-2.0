@@ -5,7 +5,8 @@ const loginControllers = {
   async createUser (req, res, next) {
     try {
       //returned data
-      const values = Object.values(req.body);
+      const values = Object.values(req.body.formState);
+      console.log("req.body from login controller", req.body.formState)
       const check  = await db.query('SELECT * FROM user_data WHERE username = ($1)', [req.body.username])
       if(check.rowCount === 0){
       const result = await db.query('INSERT INTO public.user_data(first_name, last_name, username, password) VALUES ($1, $2, $3, $4)', values)
