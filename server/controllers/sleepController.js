@@ -84,7 +84,7 @@ const sleepControllers = {
       const value = [sleepid]
       const result = db.query('DELETE FROM sleep WHERE sleepid=($1) returning *', value)
       res.locals.deletedSleepEntry = result.rows[0]
-      console.log(`Deleted Sleep Entry ${sleepid} from DB,`, result)
+      // console.log(`Deleted Sleep Entry ${sleepid} from DB,`, result)
       return next();
     }catch(err){
       console.log(err)

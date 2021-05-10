@@ -49,7 +49,6 @@ router.post('/',
 router.patch('/:userid/:sleepid',
     sleepController.updateSleepEntry,
     (req, res) => {
-        console.log(req.query)
         res.status(200).json(res.locals.updatedSleepEntry)
     }
 );

@@ -47,17 +47,17 @@ const App = () => {
     fetch("/api/")
       .then(r => r.json())
       .then((user) => {
-        console.log("user fetch", user)
+        // console.log("user fetch", user)
         setAppState(user);
-         console.log("user data from 2nd promise after setState", appState);
+        //  console.log("user data from 2nd promise after setState", appState);
     }).catch(err => console.log(err))
     
     fetch("/api/sleep")
     .then(r => r.json())
     .then((sleep) => {
-       console.log("sleep fetch", sleep)
+      //  console.log("sleep fetch", sleep)
        setSleepState(sleep)
-       console.log("sleep fetch", sleep)
+      //  console.log("sleep fetch", sleep)
     }).catch(err => console.log(err))
     
   }, [])
@@ -82,13 +82,15 @@ const App = () => {
 
   const createUser = (createdUser) => {
     console.log('from app render func', createdSleepEntry)
-    // const copyOfState = [...appState, createdSleepEntry]
-    // let copyOfUser = {
-    //   ...appState
-    //  
-    // }
+    console.log('from app redner func : Created User Argurment :', createdUser)
+    const copyOfState = [...appState, createdSleepEntry]
+    let copyOfUser = {
+      ...appState
+     
+    }
     //  use my set state
   }
+  
   const addSleepEntry = (createdSleepEntry) => {
     console.log('from app render func', createdSleepEntry)
     // const copyOfState = [...appState, createdSleepEntry]
@@ -176,8 +178,8 @@ const App = () => {
   }
  
 
-  console.log("new app state", appState)
-  console.log("new sleep state", sleepState)
+  // console.log("new app state", appState)
+  // console.log("new sleep state", sleepState)
   //console.log("new app state first", appState[0])
   return (
     <div className="App">

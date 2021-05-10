@@ -44,8 +44,7 @@ const Form = (props) => {
                     })
                   }).then( res => res.json())
                   .then(createdSleepEntry => {
-                      props.createUser(createdSleepEntry)
-                  }).console.log(err => {console.log(err)})
+                      props.createUser(createdSleepEntry)})//.console.log(err => {console.log(err)})
         }
        
     }
@@ -57,9 +56,9 @@ const Form = (props) => {
     //     setFormState({ 
     //         [name]: value
     //     })
-    //}     
+    // }     
 
-    const [formState, handleChange ] = useForm();
+    const [ formState, handleChange ] = useForm();
     
     let {formName} = props
     let {first_name, last_name, username, password} = formState

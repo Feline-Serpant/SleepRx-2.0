@@ -2,7 +2,7 @@ import React from 'react'
 
 const SleepEntry = (props) => {
     const {bed_time, caffeine_intake, calorie_intake, exercise_time, date, hours_slept, mood, score, wake_time } = props.sleep
-    console.log(props.sleep)
+    // console.log(props.sleep)
     return (
         <div>
             <h3>date {date}</h3>

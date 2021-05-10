@@ -12,10 +12,10 @@ const SleepForm = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(e.target)
-        console.log(values)
+        // console.log(e.target)
+        // console.log(values)
         const userid = props.userData[0].userid
-        console.log("post treq user", userid)
+        // console.log("post treq user", userid)
         fetch(`/api/`, {
             method: "POST",
             headers: {
