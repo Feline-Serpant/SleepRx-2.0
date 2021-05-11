@@ -16,11 +16,10 @@ const  history = useHistory
 
 const App = () => {
  
-  //vvv----equiv of state={}---vvv
-  
 
+  //CORAL'S NOTES FOR THE TEAM TO GET A HANDLE ON MY HOOKS
 
-
+  //vvv below----  equiv of this.state={}  --- below vvv
   //useState returns 2 vars defined in brackets, and set to value in parens
   // useState(0) returns a pair of values: the current state and a function that updates it
   
@@ -37,7 +36,7 @@ const App = () => {
 
   //___________________fetches____________________//
 
-        //null
+     //initially null
   const [appState, setAppState] = useState(null) 
   //     ^state,      ^.setState({})        ^initial state
   //      new state[{},{}, etc.]
@@ -46,7 +45,7 @@ const App = () => {
   const [tester , setTester] = useState();
 
   useEffect(() => {
-    setTester("Hope to see you soon");
+    setTester("Testing setting state on mount");
     //add login stuff here
     fetch("/api/")
       .then(r => r.json())
@@ -113,8 +112,8 @@ const App = () => {
     }
   }
   
-  //now that there are users we are going to use appstate
-  //appstate is current state, to set it, use setState and put what we're using inside
+  //now that there are users we are going to use appState
+  //appState is current state, to set it, use setState and put what we're using inside
   //const [appState, setAppState] = useState(null) 
   //     ^state,      ^.setState({})        ^initial state
 
@@ -138,7 +137,7 @@ const App = () => {
     //   ...appState
     //  //!HANDLE RE-RENDER
     // }
-    //  use my set state
+    //  use my set state here when you set the new state
   }
 
 
@@ -184,7 +183,6 @@ const App = () => {
       return <Form
         formName="Login" 
         //addSleepEntry={addSleepEntry}
-        //createUser={createUser}
         //handleResponse={handleResponse}
 
       />

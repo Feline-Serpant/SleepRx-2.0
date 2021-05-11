@@ -3,7 +3,7 @@ import { Line } from "react-chartjs-2";
 const Graph = (props) => {
 
     const sleep = props.sleepData
-
+//dates being sorted to display in timeline properly
     sleep.sort((a,b)=>{
         
       const bdate = b.date.split('-')
@@ -11,17 +11,17 @@ const Graph = (props) => {
       console.log(adate)
       return adate[0] - bdate[0] || adate[1] - bdate[1] || adate[2] - bdate[2];
   })
-
+//getting just sleep dates
     const sleepEntryDate = sleep.map((sleep) => (
         // console.log("mapped", sleep)
         sleep.date
   ))
-
+//getting just score
   const sleepEntryScore = sleep.map((sleep) => (
     // console.log("mapped", sleep)
     sleep.score 
 ))
-
+//optimized the overall sleep score... will break down the optimization by category later, running out of time
 const sleepEntryScoreOptimized = sleep.map((sleep) => (
     // console.log("mapped", sleep)
     
@@ -43,7 +43,7 @@ const sleepEntryScoreOptimized = sleep.map((sleep) => (
   //console.log(verifyNotNull)
   
   console.log("sleep entries", sleepEntryScore)
-
+//graph data below sorry guys running out of time we can talk about this if it's unclear
     const data = {
         labels: sleepEntryDate,
         datasets: [

@@ -70,6 +70,8 @@ const SleepEntry = (props) => {
     }
 
     return (
+
+    //passed props into the functional component and deconstructed the props on line 18 these are not imported by magic
         <div className="entry">
 
             <h2>date {date}</h2>
