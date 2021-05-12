@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const router = require('./router/api');
-
+const mlRouter = require('./router/ml-router');
 //OAUTH TODO: Add steps in this file as well 
 
 
@@ -17,6 +17,7 @@ if (process.env.NODE_ENV === 'production') {
 };
 
 
+app.use('/api/ml', mlRouter);
 app.use('/api', router);
 
 
