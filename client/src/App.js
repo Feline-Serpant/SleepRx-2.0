@@ -6,7 +6,7 @@ import MainContainer from './DashComponents/MainContainer'
 import NavBar from './components/NavBar'
 import Home from './components/Home'
 import About from './components/About'
-import useForm  from './components/useForm'
+import DreamJournal from './components/DreamJournal'
 import Form from './components/Form'
 import { Route, withRouter, Switch } from 'react-router';
 import { useHistory } from 'react-router-dom';
@@ -144,6 +144,81 @@ const App = () => {
 
   //___________________route rendering____________________//
 
+
+  //   the way the below function works is if register is clicked render register form else i render login form
+  //   return <Form userData={appState} />
+
+  const renderForm = (routerProps) => {
+    if(routerProps.location.pathname === "/login"){
+      return <Form
+        formName="Login" 
+        //addSleepEntry={addSleepEntry}
+        //handleResponse={handleResponse}
+
+      />
+    } else if (routerProps.location.pathname === "/register") {
+      return <Form
+      formName="Register To Begin"
+      //createUser={createUser}
+      // handleSubmit={handleRegisterSubmit}
+      // handleLoginGithub={handleLoginGithub}
+      handleResponse={handleResponse}
+      />
+    }
+  }
+
+  const renderMain = () => {
+    if(appState && sleepState) return  <MainContainer userData={appState} sleepData={sleepState} addSleepEntry={addSleepEntry} />
+  }
+
+  const renderDreamJournal = () => {
+    return <DreamJournal />
+  }
+ 
+  const renderAbout = () => {
+    return <About />
+  }
+
+  // console.log("new app state", appState)
+  // console.log("new sleep state", sleepState)
+  //console.log("new app state first", appState[0])
+  return (
+    <div className="App">
+      <header className="App-header">
+      <div className="header-col">
+      <h2 className="name">  SleepRx  </h2> <img  src={SleepRx_Logo} className="navLogo" alt="logo" />
+       </div>
+      </header>
+       
+        {/* <h2>{appState[0].first_name}</h2> */}
+        <style>
+              @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap')
+        </style>
+        <NavBar/>  
+        {/* <h1>Hello  {appState[0].first_name}!</h1> */}
+        <Switch>
+          <Route path="/" exact component={Home}/>
+          <Route path="/login" render={sleepState && renderForm}/>
+          <Route path="/register" render={renderForm}/>
+          <Route path="/tracker" render={renderMain} />
+          <Route path="/dreams" render={renderDreamJournal} />
+          <Route path="/about" render={renderAbout} />
+          {/* <Route path="/about" render={renderErrorPage} /> */}
+        </Switch>
+        
+    </div>
+  );
+}
+let RouterComponent = withRouter(App)
+export default RouterComponent;
+
+
+
+
+
+
+
+
 //Step 1:
 
 //FOR USE IN OAUTH LATER: Request a user's GitHub identity
@@ -177,66 +252,3 @@ const App = () => {
 
 //For example, in curl you can set the Authorization header like this:
 //curl -H "Authorization: token OAUTH-TOKEN" https://api.github.com/user
-
-  const renderForm = (routerProps) => {
-    if(routerProps.location.pathname === "/login"){
-      return <Form
-        formName="Login" 
-        //addSleepEntry={addSleepEntry}
-        //handleResponse={handleResponse}
-
-      />
-    } else if (routerProps.location.pathname === "/register") {
-      return <Form
-      formName="Register To Begin"
-      //createUser={createUser}
-      // handleSubmit={handleRegisterSubmit}
-      // handleLoginGithub={handleLoginGithub}
-      handleResponse={handleResponse}
-      />
-    }
-  }
-  // const renderForm = () => {
-  //   //if register is clicked render register form else i render login form
-  //   return <Form userData={appState} />
-  // }
-
-  const renderMain = () => {
-    if(appState && sleepState) return  <MainContainer userData={appState} sleepData={sleepState} addSleepEntry={addSleepEntry} />
-  }
-  const renderAbout = () => {
-    return <About />
-  }
- 
-
-  // console.log("new app state", appState)
-  // console.log("new sleep state", sleepState)
-  //console.log("new app state first", appState[0])
-  return (
-    <div className="App">
-      <header className="App-header">
-      <div className="header-col">
-      <h2 className="name">  SleepRx  </h2> <img  src={SleepRx_Logo} className="navLogo" alt="logo" />
-       </div>
-      </header>
-       
-        {/* <h2>{appState[0].first_name}</h2> */}
-        <style>
-              @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap')
-        </style>
-        <NavBar/>  
-        {/* <h1>Hello  {appState[0].first_name}!</h1> */}
-        <Switch>
-          <Route path="/" exact component={Home}/>
-          <Route path="/login" render={sleepState && renderForm}/>
-          <Route path="/register" render={renderForm}/>
-          <Route path="/tracker" render={renderMain} />
-          <Route path="/about" render={renderAbout} />
-          {/* <Route path="/about" render={renderErrorPage} /> */}
-        </Switch>
-        
-    </div>
-  );
-}
-let RouterComponent = withRouter(App)
-export default RouterComponent;
