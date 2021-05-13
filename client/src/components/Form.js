@@ -24,8 +24,7 @@ const Form = (props) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    username: formState.username,
-                    password: formState.password
+                    ...formState
                 })
                 }).then( res => res.json())
             //add handle response here
@@ -66,7 +65,7 @@ const Form = (props) => {
                     <label htmlFor="name">First Name:</label>
                     <input className="input" type="text" autoComplete="off" name="first_name" value={ first_name } onChange={handleChange}/><br/>
                     <label htmlFor="name">Last Name:</label>
-                    <input className="input" type="text" autoComplete="off" name="last_name " value={last_name } onChange={handleChange}/><br/>
+                    <input className="input" type="text" autoComplete="off" name="last_name" value={last_name } onChange={handleChange}/><br/>
                     <label htmlFor="username">Username:</label>
                     <input className="input" type="text" autoComplete="off" name="username" value={ username } onChange={handleChange}/><br/>
                     <label htmlFor="password">Password:</label>

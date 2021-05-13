@@ -9,13 +9,14 @@ const loginControllers = {
   async createUser (req, res, next) {
     try {
       //1.destructure the req.body
+      console.log(req.body);
       const {first_name, last_name, username, password } = req.body;
 
       //2.check if the user exist doesn't exist
       const check  = await db.query('SELECT * FROM user_data WHERE username = ($1)', [username]);
 
       if(check.rows.length !== 0){
-        return res.status(401).send('User already exist');
+        return res.json({isLoggedIn : false});
       }
       //3. bcrpyt the user password
 

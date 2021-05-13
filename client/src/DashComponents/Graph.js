@@ -3,7 +3,7 @@ import { Line } from "react-chartjs-2";
 
 const Graph = (props) => {
   const sleep = props.sleepData;
-
+  console.log(sleep);
   //______________________Sorting Data in Chronological Order________________________//
   sleep.sort((a, b) => {
     const bdate = b.date.split("-");
