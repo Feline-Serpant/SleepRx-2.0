@@ -7,27 +7,7 @@ import useForm from "./useForm"
 
 
 const Form = (props) => {
-    // const [formState, setFormState] = useState({
-        
-    //     first_name: "",
-    //     last_name: "",
-    //     username: "",
-    //     password: ""
-    
-    
-    //   })
-
   
-    
-    // const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    // const onSubmit = data => console.log(data);
-
-
-    // let handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     // this.props.handleSubmit(this.state)
-    //   }
-    
     const handleSubmit = (e) => {
         e.preventDefault()
         //console.log(formState)
