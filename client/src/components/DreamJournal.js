@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 
 const DreamJournal = () => {
   const [dreams, setDream] = useState("");
   const [allDreams, setAllDream] = useState([]);
+
+  // useEffect(()=>{
+  //   fetch('/api/sleep').
+  //   then(res => res.json())
+  //   .then(data => {
+    //check what kind of data the api is receiving
+  //     setAllDream(...allDreams, ...data);
+  //   }  
+  //   )
+  // },[]);
 
   const handleChange = (e) => {
     e.persist();
@@ -34,14 +44,14 @@ const DreamJournal = () => {
 
   let dreamEntries = allDreams.map((dream) => (
     <div>
-      <p> {dream} </p>
+      <p> • {dream} </p>
     </div>
   ));
 
   return (
     <div>
       <h2>History of your Subconscious </h2>
-      <form onSubmit={handleSubmit}>
+      <form className="catForm" onSubmit={handleSubmit}>
         <label htmlFor="password">What's on Your Mind</label>
         <input
           className="input"
@@ -56,7 +66,9 @@ const DreamJournal = () => {
 
         <input className="submitButton" type="submit" value="Submit" />
       </form>
-      <div>{dreamEntries}</div>
+        <div>
+            {dreamEntries}
+        </div>
     </div>
   );
 };

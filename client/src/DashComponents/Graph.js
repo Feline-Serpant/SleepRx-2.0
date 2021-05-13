@@ -32,16 +32,15 @@ const Graph = (props) => {
   //______________________________caffeineScore______________________________//
 
   const caffeineOptimized = (sleep) => {
-    let forty = (sleep.score * 40) / 100;
-    let twenty = (forty * 20) / 100;
-    const sleepEntry = sleep.map(
-      (sleep) =>
-        // console.log("mapped", sleep)
-        sleep.score + twenty
-    );
+    // console.log("sleep entry", sleep);
+    const sleepEntry = sleep.map((s) => {
+      // console.log("mapped", sleep)
+      let ten = (s.score * 10) / 100;
+      let twenty = (ten * 20) / 100;
+      return s.score + twenty;
+    });
     return sleepEntry;
   };
-
   //______________________________calorieScore______________________________//
   const caloriesOptimized = (sleep) => {
     // console.log("sleep entry", sleep);
@@ -83,7 +82,7 @@ const Graph = (props) => {
   // return sleepEntry
   //}
 
-  //const [graph, setGraph] = useState(sleepEntryScoreOverall)
+  const [graph, setGraph] = useState(sleepEntryScoreOverall)
   const sleepEntryScoreOverall = sleep.map(
     (sleep) =>
       // console.log("mapped", sleep)
@@ -92,16 +91,16 @@ const Graph = (props) => {
   );
 
   const handleClick = (e) => {
-    //console.log(e)
-    // let habit = e.target.name
+    console.log(e)
+    //let habit = e.target.name
     // if(habit === 'hoursSlept'){
     //   return setGraph(sleepOptimized)
     // } else if(habit === 'excercise'){
-    //   return setGraph(exerciseOptimized)
+    //   return setGraph(exerciseOptimized(sleep))
     // } else if(habit === 'caffeine'){
-    //   return setGraph(caffeineOptimized)
+    //   return setGraph(caffeineOptimized(sleep))
     // } else if(habit === 'calories'){
-    //   return setGraph(caloriesOptimized)
+    //   return setGraph(caloriesOptimized(sleep))
     // }
   };
   const data = {

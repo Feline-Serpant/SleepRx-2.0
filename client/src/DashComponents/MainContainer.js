@@ -16,7 +16,7 @@ import Graph from './Graph'
         
         const bdate = b.date.split('-')
         const adate = a.date.split('-')
-        console.log(adate)
+        //console.log(adate)
         return bdate[0] - adate[0] || bdate[1] - adate[1] || bdate[2] - adate[2];
     })
 

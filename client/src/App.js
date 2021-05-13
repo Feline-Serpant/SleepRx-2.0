@@ -50,8 +50,8 @@ const App = () => {
     fetch("/api/")
       .then(r => r.json())
       .then((user) => {
-        // console.log("user fetch", user)
-        console.log(user);
+        console.log("user fetch", user)
+        // console.log(user);
         setAppState(user);
         //  console.log("user data from 2nd promise after setState", appState);
     })
@@ -119,7 +119,7 @@ const App = () => {
   //     ^state,      ^.setState({})        ^initial state
 
   const addSleepEntry = (createdSleepEntry) => {
-    console.log('from app render func', createdSleepEntry)
+    //console.log('from app render func', createdSleepEntry)
     const copyOfState = [...appState, createdSleepEntry]
     let copyOfUser = {
       ...appState,
@@ -132,7 +132,7 @@ const App = () => {
   }
 
   const updateSleepEntry = (updateSleepEntry) => {
-    console.log('from app render func', createdSleepEntry)
+    // console.log('from app render func', createdSleepEntry)
     // const copyOfState = [...appState, createdSleepEntry]
     // let copyOfUser = {
     //   ...appState

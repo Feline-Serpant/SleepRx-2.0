@@ -2,6 +2,7 @@ const express =  require('express');
 const sleepController = require('../controllers/sleepController')
 const router = express.Router();
 const autorizationController = require('../controllers/authorizationController');
+const dreamController = require('../controllers/dreamController');
 //OAUTH TODO: Make rout post request for /login and one rout post request for
 // /register.
 
@@ -53,6 +54,23 @@ router.patch('/update',
         res.status(200).json()
     }
 );
+router.get('/dream',
+    autorizationController.authorize,
+    dreamController.getUserDreams,
+    (req, res) => {
+        res.status(200).json(res.locals.allDreams)
+    }
+);
+
+router.post('/dream',
+    autorizationController.authorize,
+    dreamController.createDreamEntry,
+    (req, res) => {
+        res.status(200).json(res.locals.createdDreamEntry)
+    }
+);
+
+
 
 //Coral updated this route
 // router.patch('/:userid/:sleepid',
