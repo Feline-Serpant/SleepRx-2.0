@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const ApiRouter = require('./router/api');
 const AuthRouter = require('./router/auth');
+const mlRouter = require('./router/ml-router');
 //OAUTH TODO: Add steps in this file as well 
 
 
@@ -21,6 +22,7 @@ app.use('/api', ApiRouter);
 
 app.use('/auth', AuthRouter);
 
+app.use('/api/ml', mlRouter);
 
 
 // app.post('/register', (req, res) => {

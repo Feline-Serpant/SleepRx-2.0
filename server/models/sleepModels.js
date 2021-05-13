@@ -1,4 +1,5 @@
 const { Pool } = require('pg');
+const db = require('../models/sleepModels');
 
 const PG_URI = "postgres://jzcfovnf:0TkI805nGVvQMz-ro4bB-3XSCuB1-2kH@queenie.db.elephantsql.com:5432/jzcfovnf"
 
