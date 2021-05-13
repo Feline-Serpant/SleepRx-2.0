@@ -77,12 +77,6 @@ const App = () => {
 
 
 
-
-
-
-
-
-
   //___________________state re-rendering callbacks____________________//
 
   //takes copy of original state,
