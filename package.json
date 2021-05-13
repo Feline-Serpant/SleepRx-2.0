@@ -20,6 +20,7 @@
   "author": "Axolotl Productions: RestRx",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "browserify": "^17.0.0",
     "chart.js": "^3.2.1",

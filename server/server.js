@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const router = require('./router/api');
-
+const ApiRouter = require('./router/api');
+const AuthRouter = require('./router/auth');
 //OAUTH TODO: Add steps in this file as well 
 
 
@@ -17,12 +17,15 @@ if (process.env.NODE_ENV === 'production') {
 };
 
 
-app.use('/api', router);
+app.use('/api', ApiRouter);
+
+app.use('/auth', AuthRouter);
 
 
-app.post('/register', (req, res) => {
-  res.status(200).json(res.locals.user);
-})
+
+// app.post('/register', (req, res) => {
+//   res.status(200).json(res.locals.user);
+// })
 
 // app.get('/users', (req, res) => {
 //   return res.status(200).send(checkFile);
