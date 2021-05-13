@@ -40,6 +40,7 @@ const loginControllers = {
 
   async loginUser (req, res, next) {
       try{ 
+        console.log(req.body);
         // const loginValues = Object.values(req.body);
         const {username, password} = req.body;
 

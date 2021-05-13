@@ -51,6 +51,7 @@ const App = () => {
       .then(r => r.json())
       .then((user) => {
         // console.log("user fetch", user)
+        console.log(user);
         setAppState(user);
         //  console.log("user data from 2nd promise after setState", appState);
     })
@@ -60,7 +61,7 @@ const App = () => {
     fetch("/api/sleep")
     .then(r => r.json())
     .then((sleep) => {
-      //  console.log("sleep fetch", sleep)
+       console.log("sleep fetch", sleep)
        setSleepState(sleep)
       //  console.log("sleep fetch", sleep)
     }).catch(err => console.log(err))
@@ -153,7 +154,7 @@ const App = () => {
       return <Form
         formName="Login" 
         //addSleepEntry={addSleepEntry}
-        //handleResponse={handleResponse}
+        handleResponse={handleResponse}
 
       />
     } else if (routerProps.location.pathname === "/register") {
@@ -198,7 +199,7 @@ const App = () => {
         {/* <h1>Hello  {appState[0].first_name}!</h1> */}
         <Switch>
           <Route path="/" exact component={Home}/>
-          <Route path="/login" render={sleepState && renderForm}/>
+          <Route path="/login" render={renderForm}/>
           <Route path="/register" render={renderForm}/>
           <Route path="/tracker" render={renderMain} />
           <Route path="/dreams" render={renderDreamJournal} />

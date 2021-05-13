@@ -7,7 +7,10 @@ import Graph from './Graph'
     // console.log("MainContainer", props.sleepData)
 
 
-    const sleep = props.sleepData
+    const sleep = props.sleepData;
+    // if (sleep.isLoggedIn === false) {
+
+    // }
     
     sleep.sort((a,b)=>{
         

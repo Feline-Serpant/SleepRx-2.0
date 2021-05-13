@@ -4,19 +4,26 @@ require('dotenv').config();
 
 const autorizationController = {
     async authorize(req, res, next){
-        const jwtToken = req.header("token");
+        // console.log('auto cookies are', req.cookies);
+        // console.log('auto cookies are',JSON.parse(req.cookies.jwt).token);
+        const jwtToken = JSON.parse(req.cookies.jwt).token;
         if (!jwtToken ) {
-            return res.status(403).json({ msg: "authorization denied" });
+            res.locals.curUser = undefined;
+            next();
+            // return res.json({isLoggedIn: false});
           }
           
         try{
             const verify = jwt.verify(jwtToken, process.env.jwtSecret);
             req.user = verify.user;
+            res.locals.user = req.user;
             next();
 
         }catch(err){
-            console.error(err.message);
-            return res.status(403).json({error: "NOT AUTHORIZE"});
+            res.locals.curUser = undefined;
+            next();
+            // console.error(err.message);
+            // return res.status(403).json({error: `${err}`});
         }
     }
 

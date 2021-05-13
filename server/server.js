@@ -4,10 +4,13 @@ const path = require('path');
 const ApiRouter = require('./router/api');
 const AuthRouter = require('./router/auth');
 const mlRouter = require('./router/ml-router');
+const cookieParser = require('cookie-parser');
+
 //OAUTH TODO: Add steps in this file as well 
 
 
 app.use(express.json());
+app.use(cookieParser());
 
 if (process.env.NODE_ENV === 'production') {
   app.get('/', (req, res) => {

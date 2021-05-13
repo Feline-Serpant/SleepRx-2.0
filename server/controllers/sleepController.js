@@ -61,6 +61,7 @@ const sleepControllers = {
   //GET REQUEST for user information on their sleep profile/data
   getUserData: async (req, res, next) =>{
     try {
+      console.log(res.locals.curUser);
       //returned data
       //need to make this query only select user based on parameter passed from fetch request
       const result = await db.query('SELECT userid, first_name, last_name FROM user_data')

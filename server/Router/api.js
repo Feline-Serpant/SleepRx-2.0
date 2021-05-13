@@ -8,6 +8,7 @@ const autorizationController = require('../controllers/authorizationController')
 //second login gets data from user. Possibly set a session
 
 router.get('/',
+    autorizationController.authorize,
     sleepController.getUserData, 
     (req, res) => res.status(200).send(res.locals.users)
 );
