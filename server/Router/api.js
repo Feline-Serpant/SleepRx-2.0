@@ -1,42 +1,31 @@
 const express =  require('express');
 const sleepController = require('../controllers/sleepController')
-const loginController = require('../controllers/loginController')
 const router = express.Router();
-
+const autorizationController = require('../controllers/authorizationController');
+const dreamController = require('../controllers/dreamController');
 //OAUTH TODO: Make rout post request for /login and one rout post request for
 // /register.
 
 //second login gets data from user. Possibly set a session
 
 router.get('/',
+    autorizationController.authorize,
     sleepController.getUserData, 
-    //returns only userid, firstname, lastname'
     (req, res) => res.status(200).send(res.locals.users)
 );
 //coral added this route, middleware can be found in controller
 router.get('/sleep',
+    autorizationController.authorize,
     sleepController.getSleepData,
-    
     (req, res) => res.status(200).send(res.locals.allSleepEntries)
 );
 
-
-router.post('/register',
-    loginController.createUser,
-    (req, res) => res.status(200).json(res.locals.user)
-)
-
-router.get('/login',
-    loginController.loginUser,
-    (req, res) => res.status(200).json(res.locals.user)
-)
-
-router.get('/users',
+router.get('/users', 
     sleepController.getUserData,
     (req, res) => res.status(200).json(res.locals.users)
 )
 
-router.delete('/delete',
+router.delete('/delete', 
     sleepController.deleteSleepEntry,
     (req, res) => {
         res.status(200).json(res.locals.deletedEntry)
@@ -45,7 +34,7 @@ router.delete('/delete',
 
 //Coral updated this route
 router.post('/',
-
+    autorizationController.authorize,
     sleepController.createSleepEntry,
     (req, res) => {
         res.status(200).json(res.locals.createdSleepEntry)
@@ -65,6 +54,23 @@ router.patch('/update',
         res.status(200).json()
     }
 );
+router.get('/dream',
+    autorizationController.authorize,
+    dreamController.getUserDreams,
+    (req, res) => {
+        res.status(200).json(res.locals.allDreams)
+    }
+);
+
+router.post('/dream/:message',
+    autorizationController.authorize,
+    dreamController.createDreamEntry,
+    (req, res) => {
+        res.status(200).json(res.locals.createdDreamEntry)
+    }
+);
+
+
 
 //Coral updated this route
 // router.patch('/:userid/:sleepid',

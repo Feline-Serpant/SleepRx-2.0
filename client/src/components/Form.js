@@ -6,51 +6,42 @@ import google from '../google.svg';
 import useForm from "./useForm"
 
 
+import { useHistory } from 'react-router-dom';
+
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
+
 const Form = (props) => {
-    // const [formState, setFormState] = useState({
-        
-    //     first_name: "",
-    //     last_name: "",
-    //     username: "",
-    //     password: ""
-    
-    
-    //   })
+    const  history = useHistory();
 
-  
-    
-    // const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    // const onSubmit = data => console.log(data);
-
-
-    // let handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     // this.props.handleSubmit(this.state)
-    //   }
-    
     const handleSubmit = (e) => {
         e.preventDefault()
-        //console.log(formState)
-       if(props.formName === 'Register To Begin'){
-        fetch('/api/register', {
-              
-                    method: 'POST',
-                    headers: {
-                      'Accept': 'application/json',
-                      'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        
-                     formState
-                    })
-                  }).then( res => res.json())
-                //add handle response here
-                .then(res => {
-                    //console.log('from handle response', res)
-                    props.handleResponse(res)})
-                //   .then(createdUser => {
-                //       props.createUser(createdUser)})//.console.log(err => {console.log(err)})
-        }
+        // console.log(formState)
+    //    if(props.formName === 'Register To Begin'){
+
+    fetch((props.formName === 'Register To Begin' ? '/auth/register' : '/auth/login'), {
+            
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: formState.username,
+                    password: formState.password
+                })
+                }).then( res => res.json())
+            //add handle response here
+            .then(res => {
+                console.log('this is repsponse', res);
+                cookies.set('jwt', res);
+                history.push("/tracker")
+                //console.log('from handle response', res)
+                })
+            //   .then(createdUser => {
+            //       props.createUser(createdUser)})//.console.log(err => {console.log(err)})
+        // }
        
     }
     

@@ -14,6 +14,7 @@ const convertNumber = (object) => {
 }
 
 const calcScore = (object) =>{
+  // console.log(object)
   const {hours_slept, exercise_time, caffeine_intake, calorie_intake, mood} = object;
   // console.log("in calc score", object)
   // console.log(exerciseScore(hours_slept))
@@ -21,6 +22,7 @@ const calcScore = (object) =>{
   // console.log(evalScore)
   return evalScore; 
 }
+
 const sleepScore = (num) =>{
   if(num<2) return -2
   if(num<3) return -1;
@@ -59,6 +61,7 @@ const sleepControllers = {
   //GET REQUEST for user information on their sleep profile/data
   getUserData: async (req, res, next) =>{
     try {
+      console.log(res.locals.curUser);
       //returned data
       //need to make this query only select user based on parameter passed from fetch request
       const result = await db.query('SELECT userid, first_name, last_name FROM user_data')
@@ -77,8 +80,9 @@ const sleepControllers = {
   getSleepData: async (req, res, next) =>{
     try {
       //returned data
+      console.log(req.user);
       //need to make this query only select user based on parameter passed from fetch request
-      const result = await db.query('SELECT * FROM sleep')
+      const result = await db.query('SELECT * FROM sleep where userid = ($1)', [req.user])
       //figure out how to manipulate res from db
       res.locals.allSleepEntries = result.rows; 
       return next();
@@ -96,14 +100,17 @@ const sleepControllers = {
     try{
       // console.log("from create sleep entry,",  req.body.values)
       //console.log(req.body.values)
-      req.body.values = convertNumber(req.body.values)
-      const {userid, bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date} = req.body.values;
-      const newScore = Math.floor(calcScore(req.body.values))
-      const query = "INSERT INTO sleep (userid, bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)"
-      const values = [userid, bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, newScore, date]
-      const result = await db.query(query, values);
-      res.locals.createdSleepEntry = result.rows[0]
+      console.log(req.body)
+      req.body = convertNumber(req.body)
+      const {bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date} = req.body;
+      const newScore = Math.floor(calcScore(req.body))
+      // console.log(req.user, bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, newScore , date)
 
+      const query = `INSERT INTO sleep (userid, bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date)VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`
+      const values = [req.user, bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, newScore , date]
+      const result = await db.query(query, values);
+      console.log(result.rows[0])
+      res.locals.createdSleepEntry = result.rows[0]
       // console.log(result);
 
       return next();
@@ -132,14 +139,13 @@ const sleepControllers = {
   updateSleepEntry: async (req, res, next) =>{
     try {
       req.body.values = convertNumber(req.body.values)
-      const {userid, sleepid} = req.params;
+      // const {userid, sleepid} = req.params;
       const newScore = Math.floor(calcScore(req.body.values))
       const {bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, score, date} = req.body.values;
       const query = "UPDATE sleep SET bed_time = ($1), wake_time = ($2), hours_slept = ($3), exercise_time = ($4), caffeine_intake = ($5), calorie_intake = ($6), mood = ($7), score = ($8) WHERE date = ($9) RETURNING*"
       const value = [bed_time, wake_time, hours_slept, exercise_time, caffeine_intake, calorie_intake, mood, newScore, date]
 
       const result = await db.query(query, value)
-      //console.log(result)
       res.locals.updatedSleepEntry = result.rows[0]
       
       return next();

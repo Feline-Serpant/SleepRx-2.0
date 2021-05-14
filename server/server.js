@@ -1,12 +1,16 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const router = require('./router/api');
+const ApiRouter = require('./router/api');
+const AuthRouter = require('./router/auth');
 const mlRouter = require('./router/ml-router');
+const cookieParser = require('cookie-parser');
+
 //OAUTH TODO: Add steps in this file as well 
 
 
 app.use(express.json());
+app.use(cookieParser());
 
 if (process.env.NODE_ENV === 'production') {
   app.get('/', (req, res) => {
@@ -17,13 +21,16 @@ if (process.env.NODE_ENV === 'production') {
 };
 
 
+app.use('/api', ApiRouter);
+
+app.use('/auth', AuthRouter);
+
 app.use('/api/ml', mlRouter);
-app.use('/api', router);
 
 
-app.post('/register', (req, res) => {
-  res.status(200).json(res.locals.user);
-})
+// app.post('/register', (req, res) => {
+//   res.status(200).json(res.locals.user);
+// })
 
 // app.get('/users', (req, res) => {
 //   return res.status(200).send(checkFile);

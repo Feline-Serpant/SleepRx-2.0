@@ -16,8 +16,8 @@ const SleepEntry = (props) => {
 
     //
     const {bed_time, caffeine_intake, calorie_intake, exercise_time, date, hours_slept, mood, score, wake_time, sleepid } = props.sleep
-    console.log('SLEEP PROPS', props.sleep)
-    console.log('BED TIME', bed_time)
+    // console.log('SLEEP PROPS', props.sleep)
+    // console.log('BED TIME', bed_time)
     const updatedTime = (time) => {
         if(time !== null){
         const str = time.toString()
@@ -25,7 +25,7 @@ const SleepEntry = (props) => {
         const splitStr = paddedStr.split('')
         
           splitStr.splice(2, 0, ':')
-            console.log(splitStr.join(''))
+            // console.log(splitStr.join(''))
             return splitStr
           }
       }
@@ -52,7 +52,7 @@ const SleepEntry = (props) => {
     //2. sleepid AND userid (dependant on if login state is working).
 
     const handleDelete = () => {
-        console.log("delete request for ", sleepid)
+        // console.log("delete request for ", sleepid)
         fetch('/api/delete',{
             method: "DELETE",
             headers:{
