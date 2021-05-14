@@ -4,15 +4,16 @@ const DreamJournal = () => {
   const [dreams, setDream] = useState("");
   const [allDreams, setAllDream] = useState([]);
 
-  // useEffect(()=>{
-  //   fetch('/api/sleep').
-  //   then(res => res.json())
-  //   .then(data => {
-    //check what kind of data the api is receiving
-  //     setAllDream(...allDreams, ...data);
-  //   }  
-  //   )
-  // },[]);
+  useEffect(()=>{
+    fetch('/api/dream').
+    then(res => res.json())
+    .then(data => {
+    // check what kind of data the api is receiving
+      const dreamHistory = data.map(e=> e.message);
+      setAllDream([...allDreams, ...dreamHistory]);
+    }  
+    )
+  },[]);
 
   const handleChange = (e) => {
     e.persist();
@@ -25,7 +26,15 @@ const DreamJournal = () => {
 
     console.log("state", dreams, allDreams);
     setAllDream([dreams, ...allDreams]);
-    setDream('')
+    console.log("DREAM" ,dreams);
+    fetch(`/api/dream/${dreams}`, {
+      method: 'POST'
+    }).then(data => console.log(data));
+    
+    
+    setDream("")
+
+
   };
 
   //   const [dreams, setDream] = useState([]);
@@ -43,13 +52,15 @@ const DreamJournal = () => {
   //   };
 
   let dreamEntries = allDreams.map((dream) => (
-    <div>
-      <p> • {dream} </p>
+    <div className="entry1">
+      <h2> • {dream} </h2>
     </div>
   ));
 
+
+
   return (
-    <div>
+    <div className="catContent1">
       <h2>History of your Subconscious </h2>
       <form className="catForm" onSubmit={handleSubmit}>
         <label htmlFor="password">What's on Your Mind</label>
@@ -59,14 +70,14 @@ const DreamJournal = () => {
           autoComplete="off"
           name="dream"
           placeholder="dream"
-          value={dreams.value}
+          value={dreams}
           onChange={handleChange}
         />
         <br />
 
-        <input className="submitButton" type="submit" value="Submit" />
+        <input className="submitButton" type="submit" value="Submit"/>
       </form>
-        <div>
+        <div className="catContent1">
             {dreamEntries}
         </div>
     </div>

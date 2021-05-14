@@ -213,10 +213,35 @@ label {
   border-radius: 30px 30px 30px 30px;
   font-size: 12px;
 }
+
+.entry1 {
+  margin: 1%;
+  padding: 0.5%;
+  height: 100px;
+  width: 50%;
+  font-size: 20px;
+  z-index: 1;
+  border-radius: 10%;
+  background: rgba(249, 249, 249, 0.075);
+  box-shadow: -6px -2px 30px rgba(255, 255, 255, 0.15),
+    -6px -2px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 30px 30px 30px 30px;
+  font-size: 12px;
+}
 .catContent {
   h3 {
     padding-left: 20px;
   }
   padding: 1%;
   text-align: left;
+}
+.catContent1 {
+  margin: 20px;
+  h3 {
+    padding-left: 20px;
+  }
+  padding: 1%;
+  //text-align: left;
+  justify-content: center;
+  // margin-left: 500px;
 }

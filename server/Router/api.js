@@ -62,7 +62,7 @@ router.get('/dream',
     }
 );
 
-router.post('/dream',
+router.post('/dream/:message',
     autorizationController.authorize,
     dreamController.createDreamEntry,
     (req, res) => {

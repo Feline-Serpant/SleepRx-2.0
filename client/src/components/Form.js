@@ -6,16 +6,20 @@ import google from '../google.svg';
 import useForm from "./useForm"
 
 
+import { useHistory } from 'react-router-dom';
+
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 
 const Form = (props) => {
-  
+    const  history = useHistory();
+
     const handleSubmit = (e) => {
         e.preventDefault()
         // console.log(formState)
     //    if(props.formName === 'Register To Begin'){
+
     fetch((props.formName === 'Register To Begin' ? '/auth/register' : '/auth/login'), {
             
                 method: 'POST',
@@ -24,16 +28,17 @@ const Form = (props) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    ...formState
+                    username: formState.username,
+                    password: formState.password
                 })
                 }).then( res => res.json())
             //add handle response here
             .then(res => {
                 console.log('this is repsponse', res);
                 cookies.set('jwt', res);
-
+                history.push("/tracker")
                 //console.log('from handle response', res)
-                props.handleResponse(res)})
+                })
             //   .then(createdUser => {
             //       props.createUser(createdUser)})//.console.log(err => {console.log(err)})
         // }
@@ -65,7 +70,7 @@ const Form = (props) => {
                     <label htmlFor="name">First Name:</label>
                     <input className="input" type="text" autoComplete="off" name="first_name" value={ first_name } onChange={handleChange}/><br/>
                     <label htmlFor="name">Last Name:</label>
-                    <input className="input" type="text" autoComplete="off" name="last_name" value={last_name } onChange={handleChange}/><br/>
+                    <input className="input" type="text" autoComplete="off" name="last_name " value={last_name } onChange={handleChange}/><br/>
                     <label htmlFor="username">Username:</label>
                     <input className="input" type="text" autoComplete="off" name="username" value={ username } onChange={handleChange}/><br/>
                     <label htmlFor="password">Password:</label>

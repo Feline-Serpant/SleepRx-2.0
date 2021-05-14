@@ -37,36 +37,36 @@ const App = () => {
   //___________________fetches____________________//
 
      //initially null
-  const [appState, setAppState] = useState(null) 
-  //     ^state,      ^.setState({})        ^initial state
-  //      new state[{},{}, etc.]
-  const [sleepState, setSleepState] = useState(null) 
+  // const [appState, setAppState] = useState(null) 
+  // //     ^state,      ^.setState({})        ^initial state
+  // //      new state[{},{}, etc.]
+  // const [sleepState, setSleepState] = useState(null) 
   
-  const [tester , setTester] = useState();
+  // const [tester , setTester] = useState();
 
-  useEffect(() => {
-    setTester("Testing setting state on mount");
-    //add login stuff here
-    fetch("/api/")
-      .then(r => r.json())
-      .then((user) => {
-        console.log("user fetch", user)
-        // console.log(user);
-        setAppState(user);
-        //  console.log("user data from 2nd promise after setState", appState);
-    })
-    // .then(user => handleResponse(user))
-    .catch(err => console.log(err))
+  // useEffect(() => {
+  //   setTester("Testing setting state on mount");
+  //   //add login stuff here
+  //   fetch("/api/")
+  //     .then(r => r.json())
+  //     .then((user) => {
+  //       console.log("user fetch", user)
+  //       // console.log(user);
+  //       setAppState(user);
+  //       //  console.log("user data from 2nd promise after setState", appState);
+  //   })
+  //   // .then(user => handleResponse(user))
+  //   .catch(err => console.log(err))
     
-    fetch("/api/sleep")
-    .then(r => r.json())
-    .then((sleep) => {
-       console.log("sleep fetch", sleep)
-       setSleepState(sleep)
-      //  console.log("sleep fetch", sleep)
-    }).catch(err => console.log(err))
+  //   fetch("/api/sleep")
+  //   .then(r => r.json())
+  //   .then((sleep) => {
+  //      console.log("sleep fetch", sleep)
+  //      setSleepState(sleep)
+  //     //  console.log("sleep fetch", sleep)
+  //   }).catch(err => console.log(err))
     
-  }, [])
+  // }, [])
 
 
 
@@ -163,7 +163,7 @@ const App = () => {
   }
 
   const renderMain = () => {
-    if(appState && sleepState) return  <MainContainer userData={appState} sleepData={sleepState} addSleepEntry={addSleepEntry} />
+     return  <MainContainer handleResponse={handleResponse} addSleepEntry={addSleepEntry} />
   }
 
   const renderDreamJournal = () => {

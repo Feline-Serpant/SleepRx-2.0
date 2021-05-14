@@ -112,7 +112,7 @@ const SleepForm = (props) => {
                     <option className="c-options" value="2">Average Day</option>
                     <option className="c-options" value="1">Don't Talk to Me</option>
                 </select>
-                <input className="submitButton" type="submit">Submit</input>
+                <input className="submitButton" type="submit"></input>
                 
 
             </form> 

@@ -20,8 +20,8 @@ const Graph = (props) => {
 
   //______________________________exerciseScore______________________________//
   const exerciseOptimized = (sleep) => {
-    let forty = (sleep.score * 40) / 100;
-    let twenty = (forty * 20) / 100;
+    let twentypers = (sleep.score * 20) / 100;
+    let twenty = (twentypers * 20) / 100;
     const sleepEntry = sleep.map(
       (sleep) =>
         // console.log("mapped", sleep)
@@ -71,16 +71,15 @@ const Graph = (props) => {
 
   console.log("sleepEntryScore", sleepEntryScore);
 
-  //const sleepOpt = (sleep) => {
-  const sleepOptimized = sleep.map((sleep) => {
+  const sleepOptimized = (sleep) => {
+  const sleepEntry = sleep.map((sleep) => {
     let forty = (sleep.score * 40) / 100;
     let twenty = (forty * 20) / 100;
     // console.log("mapped", sleep)
     return sleep.score + twenty;
   });
-  // ))
-  // return sleepEntry
-  //}
+  return sleepEntry
+  }
 
   const [graph, setGraph] = useState(sleepEntryScoreOverall)
   const sleepEntryScoreOverall = sleep.map(
@@ -92,16 +91,16 @@ const Graph = (props) => {
 
   const handleClick = (e) => {
     console.log(e)
-    //let habit = e.target.name
-    // if(habit === 'hoursSlept'){
-    //   return setGraph(sleepOptimized)
-    // } else if(habit === 'excercise'){
-    //   return setGraph(exerciseOptimized(sleep))
-    // } else if(habit === 'caffeine'){
-    //   return setGraph(caffeineOptimized(sleep))
-    // } else if(habit === 'calories'){
-    //   return setGraph(caloriesOptimized(sleep))
-    // }
+    let habit = e.target.name
+     if(habit === 'exercise'){
+      return setGraph(exerciseOptimized(sleep))
+    } else if(habit === 'caffeine'){
+      return setGraph(caffeineOptimized(sleep))
+    } else if(habit === 'calories'){
+      return setGraph(caloriesOptimized(sleep))
+    } else if(habit === 'hoursSlept'){
+      return setGraph(sleepOptimized(sleep))
+    } 
   };
   const data = {
     labels: sleepEntryDate,
@@ -115,7 +114,7 @@ const Graph = (props) => {
       },
       {
         label: "Optimized Sleep",
-        data: caloriesOptimized(sleep),
+        data: graph,
         fill: false,
         borderColor: "#742774",
       },
